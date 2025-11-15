@@ -297,6 +297,185 @@ body {
 .hidden {
     display: none;
 }
+
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+    
+    .header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+    }
+    
+    .logo {
+        font-size: 18px;
+    }
+    
+    .logo-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    .btn-logout {
+        padding: 8px 15px;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    
+    .login-container {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+    
+    .login-title {
+        font-size: 22px;
+    }
+    
+    .dashboard {
+        padding: 15px;
+    }
+    
+    .welcome-section {
+        padding: 20px;
+    }
+    
+    .welcome-title {
+        font-size: 20px;
+    }
+    
+    .score-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .score-circle {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .score-inner {
+        width: 155px;
+        height: 155px;
+    }
+    
+    .score-number {
+        font-size: 52px;
+    }
+    
+    .score-range {
+        width: 90px;
+        font-size: 11px;
+    }
+    
+    .score-info {
+        text-align: center;
+    }
+    
+    .btn-download {
+        width: 100%;
+    }
+    
+    .section {
+        padding: 20px;
+    }
+    
+    .section-title {
+        font-size: 18px;
+    }
+    
+    .timer-box {
+        padding: 25px 15px;
+    }
+    
+    .timer-header {
+        font-size: 16px;
+    }
+    
+    .timer-display {
+        gap: 15px;
+        margin: 20px 0;
+    }
+    
+    .timer-unit {
+        padding: 15px 20px;
+        min-width: 80px;
+    }
+    
+    .timer-number {
+        font-size: 36px;
+    }
+    
+    .timer-label {
+        font-size: 12px;
+    }
+    
+    .warning-box {
+        padding: 15px;
+    }
+    
+    .warning-text {
+        font-size: 13px;
+    }
+    
+    .amount-box {
+        padding: 12px;
+    }
+    
+    .amount-label {
+        font-size: 12px;
+    }
+    
+    .amount-value {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-title {
+        font-size: 20px;
+    }
+    
+    .login-subtitle {
+        font-size: 13px;
+    }
+    
+    .welcome-title {
+        font-size: 18px;
+    }
+    
+    .score-circle {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .score-inner {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .score-number {
+        font-size: 44px;
+    }
+    
+    .timer-display {
+        gap: 10px;
+    }
+    
+    .timer-unit {
+        padding: 12px 15px;
+        min-width: 70px;
+    }
+    
+    .timer-number {
+        font-size: 32px;
+    }
+    
+    .amount-value {
+        font-size: 24px;
+    }
+}
 </style>
 </head>
 <body>
@@ -408,12 +587,6 @@ var clientsDB = {
         codigo: '2026',
         nombre: 'Carlos Martinez',
         score: 820,
-        servicePay: { amount: 165000 }
-},
-    '1031168289': {
-        codigo: '2029',
-        nombre: 'Leidi car nalga',
-        score: 949,
         servicePay: { amount: 165000 }
     }
 };
