@@ -57,7 +57,6 @@ body {
     cursor: pointer;
 }
 
-/* ===================== LOGIN ===================== */
 .login-container {
     max-width: 450px;
     margin: 80px auto;
@@ -125,121 +124,136 @@ body {
     color: #666;
 }
 
-/* ===================== LOADING SCREEN ===================== */
+/* ===== LOADING SCREEN ===== */
 #loadingScreen {
     display: none;
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-    z-index: 999;
-    flex-direction: column;
+    z-index: 9999;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 #loadingScreen.active {
     display: flex;
 }
 
+.loading-card {
+    background: white;
+    border-radius: 24px;
+    padding: 50px 60px;
+    text-align: center;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
 .loading-logo {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 50px;
-}
-
-.loading-logo-icon {
-    width: 56px;
-    height: 56px;
-    background: white;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    color: #1e3c72;
-    font-size: 26px;
-    font-weight: bold;
-}
-
-.loading-logo-text {
-    font-size: 32px;
-    font-weight: bold;
-    color: white;
-}
-
-.loading-card {
-    background: white;
-    border-radius: 20px;
-    padding: 50px 60px;
-    text-align: center;
-    width: 420px;
-    max-width: 90vw;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-
-.loading-icon {
-    font-size: 48px;
-    margin-bottom: 20px;
-    animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.8; }
-}
-
-.loading-title {
+    gap: 10px;
     font-size: 22px;
     font-weight: bold;
     color: #1e3c72;
-    margin-bottom: 8px;
+    margin-bottom: 30px;
+}
+
+.loading-logo-icon {
+    width: 38px;
+    height: 38px;
+    background: #1e3c72;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.loading-spinner-wrap {
+    margin-bottom: 25px;
+}
+
+.loading-spinner-wrap svg {
+    animation: spin 1.5s linear infinite;
+    width: 64px;
+    height: 64px;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e3c72;
+    margin-bottom: 6px;
 }
 
 .loading-subtitle {
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 35px;
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 28px;
 }
 
 .progress-bar-container {
     background: #f0f0f0;
     border-radius: 50px;
     height: 14px;
+    width: 100%;
     overflow: hidden;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     position: relative;
 }
 
 .progress-bar-fill {
     height: 100%;
-    border-radius: 50px;
-    background: linear-gradient(90deg, #1e3c72, #4a90e2, #ff8c42);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s linear infinite;
     width: 0%;
-    transition: width 0.1s linear;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #1e3c72, #ff8c42);
+    transition: width 0.12s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: rgba(255,255,255,0.3);
+    animation: shimmer 1.2s infinite;
 }
 
 @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% { left: -60%; }
+    100% { left: 140%; }
 }
 
 .progress-percent {
-    font-size: 32px;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 800;
     color: #1e3c72;
-    margin-bottom: 8px;
+    margin-top: 14px;
+    letter-spacing: -1px;
 }
 
-.progress-message {
+.loading-status {
     font-size: 13px;
-    color: #555;
-    min-height: 18px;
-    transition: opacity 0.3s;
+    color: #888;
+    margin-top: 6px;
+    min-height: 20px;
+    font-style: italic;
 }
 
-/* ===================== DASHBOARD ===================== */
+/* ===== DASHBOARD ===== */
 .dashboard {
     display: none;
     padding: 30px;
@@ -277,7 +291,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
 }
 
 .score-inner {
@@ -331,118 +344,6 @@ body {
     cursor: pointer;
 }
 
-.section {
-    background: white;
-    border-radius: 20px;
-    padding: 35px;
-    margin-bottom: 30px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-}
-
-.section-title {
-    font-size: 24px;
-    color: #1e3c72;
-    margin-bottom: 25px;
-}
-
-/* ===================== PAZ Y SALVO SECTION ===================== */
-.paz-salvo-box {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-    padding: 40px;
-    border-radius: 15px;
-    color: white;
-    text-align: center;
-}
-
-.paz-salvo-header {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.paz-salvo-subheader {
-    font-size: 14px;
-    opacity: 0.85;
-    margin-bottom: 30px;
-}
-
-.paz-progress-wrap {
-    background: rgba(255,255,255,0.15);
-    border-radius: 50px;
-    height: 18px;
-    overflow: hidden;
-    margin-bottom: 12px;
-}
-
-.paz-progress-fill {
-    height: 100%;
-    border-radius: 50px;
-    background: linear-gradient(90deg, #4ade80, #22d3ee, #a78bfa);
-    background-size: 200% 100%;
-    animation: shimmer2 2s linear infinite;
-    width: 0%;
-    transition: width 0.04s linear;
-}
-
-@keyframes shimmer2 {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-.paz-percent {
-    font-size: 42px;
-    font-weight: bold;
-    margin-bottom: 6px;
-}
-
-.paz-message {
-    font-size: 14px;
-    opacity: 0.9;
-    min-height: 20px;
-    margin-bottom: 20px;
-    transition: opacity 0.3s;
-}
-
-.paz-status-badge {
-    display: none;
-    background: rgba(255,255,255,0.2);
-    border: 2px solid rgba(255,255,255,0.5);
-    border-radius: 12px;
-    padding: 20px 30px;
-    margin-top: 10px;
-}
-
-.paz-status-badge.visible {
-    display: block;
-    animation: fadeInUp 0.5s ease;
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.paz-status-icon {
-    font-size: 40px;
-    margin-bottom: 10px;
-}
-
-.paz-status-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 6px;
-    color: #86efac;
-}
-
-.paz-status-text {
-    font-size: 14px;
-    opacity: 0.9;
-    line-height: 1.6;
-}
-
-
-
-/* ===================== HISTORY SECTION ===================== */
 .credit-history-section {
     background: #f8f9fa;
     padding: 30px;
@@ -568,17 +469,205 @@ body {
     .dashboard { padding: 15px; }
     .welcome-section { padding: 20px; }
     .score-container { flex-direction: column; }
-    .section { padding: 20px; }
     .credit-history-section { padding: 20px; }
     .account-card { flex-direction: column; align-items: flex-start; gap: 15px; }
     .account-arrow { align-self: flex-end; }
     .loading-card { padding: 40px 30px; }
+    .paz-salvo-header { flex-wrap: wrap; }
+    .paz-salvo-badge { margin-left: 0; }
+}
+
+/* ===== PAZ Y SALVO BAR ===== */
+.paz-salvo-box {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+    border: 2px solid #c7d8fc;
+    border-radius: 16px;
+    padding: 30px;
+    margin-top: 25px;
+}
+
+.paz-salvo-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.paz-salvo-icon-wrap {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(30,60,114,0.15);
+    flex-shrink: 0;
+}
+
+.paz-salvo-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1e3c72;
+    margin-bottom: 3px;
+}
+
+.paz-salvo-subtitle {
+    font-size: 13px;
+    color: #6b7a99;
+}
+
+.paz-salvo-badge {
+    margin-left: auto;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.5s ease;
+}
+
+.paz-salvo-badge.done {
+    background: #d4edda;
+    color: #155724;
+    border-color: #28a745;
+}
+
+.paz-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.paz-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #6b7a99;
+    transition: color 0.4s ease;
+}
+
+.paz-step.active-step {
+    color: #1e3c72;
+    font-weight: 600;
+}
+
+.paz-step.done-step {
+    color: #28a745;
+}
+
+.paz-step-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.5s ease;
+    background: #d0d9f0;
+}
+
+.paz-step-dot.running {
+    background: #ff8c42;
+    box-shadow: 0 0 0 4px rgba(255,140,66,0.25);
+    animation: pulse-dot 1s infinite;
+}
+
+.paz-step-dot.completed {
+    background: #28a745;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+.paz-bar-wrap {
+    margin-bottom: 15px;
+}
+
+.paz-bar-track {
+    background: #d0d9f0;
+    border-radius: 50px;
+    height: 18px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.paz-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #1e3c72 0%, #2a5298 60%, #4CAF50 100%);
+    transition: width 0.6s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.paz-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.paz-percent {
+    font-size: 30px;
+    font-weight: 800;
+    color: #1e3c72;
+    letter-spacing: -1px;
+    transition: all 0.3s ease;
+}
+
+.paz-eta-txt {
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+}
+
+.paz-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255,255,255,0.25);
+    animation: paz-shimmer 2.5s infinite;
+}
+
+@keyframes paz-shimmer {
+    0% { left: -50%; }
+    100% { left: 150%; }
+}
+
+
+
+.paz-status-msg {
+    font-size: 14px;
+    color: #5a6a8a;
+    padding: 12px 18px;
+    background: white;
+    border-radius: 10px;
+    border-left: 4px solid #1e3c72;
+    line-height: 1.5;
+    min-height: 46px;
+    transition: border-color 0.5s ease;
+}
+
+.paz-status-msg.done-msg {
+    border-left-color: #28a745;
+    color: #155724;
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <div class="logo">
         <div class="logo-icon">mi</div>
@@ -607,25 +696,33 @@ body {
     
     <button class="btn-login" onclick="handleLogin()">Conocer MI PUNTAJE</button>
     
-    <p class="help-text">No tienes código? Contacta con tu asesor</p>
+    <p class="help-text">¿No tienes código? Contacta con tu asesor</p>
 </div>
 
-<!-- PANTALLA DE CARGA AL LOGIN -->
+<!-- LOADING SCREEN -->
 <div id="loadingScreen">
-    <div class="loading-logo">
-        <div class="loading-logo-icon">mi</div>
-        <span class="loading-logo-text">datacrédito</span>
-    </div>
     <div class="loading-card">
-        <div class="loading-icon">🔐</div>
-        <div class="loading-title">Verificando tu identidad</div>
-        <div class="loading-subtitle">Consultando tu historial crediticio de forma segura</div>
+        <div class="loading-logo">
+            <div class="loading-logo-icon">mi</div>
+            <span>datacrédito</span>
+        </div>
+
+        <div class="loading-spinner-wrap">
+            <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="25" cy="25" r="20" stroke="#e8f0fe" stroke-width="5"/>
+                <path d="M25 5 A20 20 0 0 1 45 25" stroke="#1e3c72" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <div class="loading-title">Cargando tu información</div>
+        <div class="loading-subtitle">Consultando Datacrédito de forma segura...</div>
 
         <div class="progress-bar-container">
-            <div class="progress-bar-fill" id="loginProgressFill"></div>
+            <div class="progress-bar-fill" id="progressFill"></div>
         </div>
-        <div class="progress-percent" id="loginPercent">0%</div>
-        <div class="progress-message" id="loginMessage">Iniciando conexión segura...</div>
+
+        <div class="progress-percent" id="progressPercent">0%</div>
+        <div class="loading-status" id="loadingStatus">Iniciando conexión segura...</div>
     </div>
 </div>
 
@@ -648,24 +745,31 @@ body {
             
             <div class="score-info">
                 <span class="score-status" id="scoreStatus">Buen Perfil</span>
-                <p id="scoreDescription" style="color: #555; line-height: 1.6; margin-bottom: 20px;"></p>
+                <p id="scoreDescription" style="color: #555; line-height: 1.6; margin-bottom: 20px;">
+                    Tu puntaje indica un buen historial crediticio.
+                </p>
                 <button class="btn-download" onclick="handleDownload()">Descargar Reporte PDF</button>
             </div>
         </div>
-
+        
         <div class="credit-history-section">
             <h2 class="credit-history-title">Historia de crédito</h2>
+            
             <p class="credit-history-description">
                 Tu historia de crédito se construye con los reportes <strong>positivos y negativos</strong> realizados por las entidades ante Datacrédito.
             </p>
+            
             <p class="law-reference">
                 Según el <strong>Artículo 14</strong> de la <strong>Ley 1266</strong> de 2008, los reportes son positivos cuando estás al día en tus obligaciones y son negativos cuando te encuentras en mora en tus cuotas u obligaciones.
             </p>
-
+            
             <div class="account-card" onclick="toggleDetails('openAccounts')">
                 <div class="account-card-left">
                     <div class="account-icon">📂</div>
-                    <div class="account-info"><h3>0 Cuentas abiertas</h3><p>Tus productos activos</p></div>
+                    <div class="account-info">
+                        <h3>0 Cuentas abiertas</h3>
+                        <p>Tus productos activos</p>
+                    </div>
                 </div>
                 <div class="account-arrow">›</div>
             </div>
@@ -675,11 +779,14 @@ body {
                 <div class="detail-row"><span class="detail-label">Tarjetas de crédito:</span><span class="detail-value">0</span></div>
                 <div class="detail-row"><span class="detail-label">Saldo total:</span><span class="detail-value">$0</span></div>
             </div>
-
+            
             <div class="account-card" onclick="toggleDetails('closedAccounts')">
                 <div class="account-card-left">
                     <div class="account-icon">📋</div>
-                    <div class="account-info"><h3>0 Cuentas cerradas</h3><p>Productos cerrados o cancelados</p></div>
+                    <div class="account-info">
+                        <h3>0 Cuentas cerradas</h3>
+                        <p>Productos cerrados o cancelados</p>
+                    </div>
                 </div>
                 <div class="account-arrow">›</div>
             </div>
@@ -688,11 +795,14 @@ body {
                 <div class="detail-row"><span class="detail-label">Créditos pagados:</span><span class="detail-value">0</span></div>
                 <div class="detail-row"><span class="detail-label">Tarjetas canceladas:</span><span class="detail-value">0</span></div>
             </div>
-
+            
             <div class="account-card" onclick="toggleDetails('latePayments')">
                 <div class="account-card-left">
                     <div class="account-icon">⚠️</div>
-                    <div class="account-info"><h3>0 Pagos atrasados</h3><p>Obligaciones en mora</p></div>
+                    <div class="account-info">
+                        <h3>0 Pagos atrasados</h3>
+                        <p>Obligaciones en mora</p>
+                    </div>
                 </div>
                 <div class="account-arrow">›</div>
             </div>
@@ -701,11 +811,14 @@ body {
                 <div class="detail-row"><span class="detail-label">Días de mora promedio:</span><span class="detail-value">0 días</span></div>
                 <div class="detail-row"><span class="detail-label">Monto en mora:</span><span class="detail-value">$0</span></div>
             </div>
-
+            
             <div class="account-card" onclick="toggleDetails('creditInquiries')">
                 <div class="account-card-left">
                     <div class="account-icon">🔍</div>
-                    <div class="account-info"><h3>0 Consultas de crédito</h3><p>Solicitudes realizadas</p></div>
+                    <div class="account-info">
+                        <h3>0 Consultas de crédito</h3>
+                        <p>Solicitudes realizadas</p>
+                    </div>
                 </div>
                 <div class="account-arrow">›</div>
             </div>
@@ -714,193 +827,186 @@ body {
                 <div class="detail-row"><span class="detail-label">Consultas últimos 12 meses:</span><span class="detail-value">0</span></div>
                 <div class="detail-row"><span class="detail-label">Última consulta:</span><span class="detail-value">N/A</span></div>
             </div>
-        </div>
-    </div>
 
-    <!-- SECCIÓN PAZ Y SALVO (reemplaza timer) -->
-    <div class="section">
-        <h2 class="section-title">Verificación para Paz y Salvo</h2>
+            <!-- ===== BARRA DE ACTUALIZACIÓN PAZ Y SALVO ===== -->
+            <div class="paz-salvo-box" id="pazSalvoBox">
+                <div class="paz-salvo-header">
+                    <div class="paz-salvo-icon-wrap">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="#1e3c72" stroke-width="2"/>
+                            <path d="M12 6v6l4 2" stroke="#1e3c72" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="paz-salvo-title">Cargando información correctamente</div>
+                        <div class="paz-salvo-subtitle">Procesando datos para generar Paz y Salvo</div>
+                    </div>
+                    <div class="paz-salvo-badge" id="pazSalvoBadge">EN PROCESO</div>
+                </div>
 
-        <div class="paz-salvo-box">
-            <div class="paz-salvo-header">📡 Cargando información del sistema</div>
-            <div class="paz-salvo-subheader">Conectando con las bases de datos de Datacrédito...</div>
+                <div class="paz-steps" id="pazSteps">
+                    <div class="paz-step" id="step1">
+                        <div class="paz-step-dot pending"></div>
+                        <span>Verificando obligaciones financieras</span>
+                    </div>
+                    <div class="paz-step" id="step2">
+                        <div class="paz-step-dot pending"></div>
+                        <span>Consultando entidades reportantes</span>
+                    </div>
+                    <div class="paz-step" id="step3">
+                        <div class="paz-step-dot pending"></div>
+                        <span>Validando historial de pagos</span>
+                    </div>
+                    <div class="paz-step" id="step4">
+                        <div class="paz-step-dot pending"></div>
+                        <span>Cruzando información con bases de datos</span>
+                    </div>
+                    <div class="paz-step" id="step5">
+                        <div class="paz-step-dot pending"></div>
+                        <span>Generando certificado Paz y Salvo</span>
+                    </div>
+                </div>
 
-            <div class="paz-progress-wrap">
-                <div class="paz-progress-fill" id="pazProgressFill"></div>
-            </div>
-            <div class="paz-percent" id="pazPercent">0%</div>
-            <div class="paz-message" id="pazMessage">Iniciando verificación de datos...</div>
+                <div class="paz-bar-wrap">
+                    <div class="paz-bar-track">
+                        <div class="paz-bar-fill" id="pazBarFill"></div>
+                    </div>
+                    <div class="paz-bar-labels">
+                        <span class="paz-percent" id="pazPercent">0%</span>
+                        <span class="paz-eta-txt">Cargando informacion...</span>
+                    </div>
 
-            <div class="paz-status-badge" id="pazBadge">
-                <div class="paz-status-icon">✅</div>
-                <div class="paz-status-title">Información cargada correctamente</div>
-                <div class="paz-status-text">
-                    Todos los datos han sido verificados y están listos.<br>
-                    El sistema está listo para <strong>actualizar y generar tu Paz y Salvo</strong>.
+                </div>
+
+                <div class="paz-status-msg" id="pazStatusMsg">
+                    🔄 Iniciando proceso de actualización...
                 </div>
             </div>
-
 
         </div>
     </div>
 </div>
 
 <script>
+// ===== BASE DE DATOS DE CLIENTES =====
+// Para agregar un cliente, copia el bloque y cambia los datos:
+// 'CEDULA': { codigo: 'CODIGO', nombre: 'NOMBRE COMPLETO', score: PUNTAJE }
 var clientsDB = {
-    '40976616':   { codigo: '16',  nombre: 'Idaly Mendoza Suarez', score: 350 },
-    '39443129': { codigo: '3129', nombre: 'Alba Lucia Suarez Montoya',        score: 845 },
-    '80803842': { codigo: '384', nombre: 'Johnny Falcao Gutierrez Velandia',       score: 867 },
-    '14241958':   { codigo: '1958', nombre: 'Miray Garzon Serrato',        score: 789 }
+    '77189304': {
+        codigo: '930',
+        nombre: 'Luis Alberto Elles Molina',
+        score: 798
+    },
+    '1023870742': {
+        codigo: '4546',
+        nombre: 'Diana Forero Orozco',
+        score: 798
+    },
+    '1116240675': {
+        codigo: '1202',
+        nombre: 'Andres Grueso Bonilla',
+        score: 867
+    },
+    '14241958': {
+        codigo: '1958',
+        nombre: 'Miray Garzon Serrato',
+        score: 789
+    }
 };
 
 var currentUser = null;
 
-/* ========== LOGIN MESSAGES ========== */
-var loginMessages = [
-    [0,  'Iniciando conexión segura...'],
-    [10, 'Verificando credenciales...'],
-    [25, 'Validando número de cédula...'],
-    [40, 'Consultando base de datos Datacrédito...'],
-    [55, 'Recuperando historial crediticio...'],
-    [70, 'Procesando información de puntaje...'],
-    [85, 'Preparando tu reporte personalizado...'],
-    [95, 'Casi listo...'],
-    [99, 'Ingresando al portal...']
+// Mensajes que aparecen durante la carga
+var loadingMessages = [
+    'Iniciando conexión segura...',
+    'Verificando identidad...',
+    'Consultando central de riesgos...',
+    'Procesando historial crediticio...',
+    'Calculando puntaje...',
+    'Analizando cuentas activas...',
+    'Revisando obligaciones...',
+    'Generando reporte personalizado...',
+    'Aplicando cifrado de datos...',
+    'Finalizando consulta...'
 ];
 
-/* ========== PAZ Y SALVO MESSAGES ========== */
-var pazMessages = [
-    [0,  '🔐 Iniciando conexión cifrada con servidores Datacrédito...'],
-    [2,  '🌐 Estableciendo protocolo de seguridad SSL/TLS...'],
-    [4,  '🔑 Autenticando credenciales del titular...'],
-    [6,  '📋 Verificando número de cédula en el registro civil...'],
-    [8,  '🏦 Conectando con la base de datos central de crédito...'],
-    [10, '📡 Sincronizando con CIFIN y centrales de riesgo...'],
-    [12, '👤 Validando identidad biométrica del titular...'],
-    [14, '📂 Cargando expediente crediticio completo...'],
-    [16, '💳 Recuperando historial de tarjetas de crédito activas...'],
-    [18, '💳 Consultando cupos disponibles y utilizados...'],
-    [20, '🏧 Verificando cuentas bancarias vinculadas...'],
-    [22, '📊 Cargando movimientos financieros de los últimos 24 meses...'],
-    [24, '⚠️ Consultando cartera en mora con entidades bancarias...'],
-    [26, '⚖️ Verificando obligaciones en cobro jurídico...'],
-    [28, '🔍 Revisando cartera castigada y embargos activos...'],
-    [30, '🏢 Consultando deudas con entidades financieras vigiladas...'],
-    [32, '🤝 Verificando obligaciones con cooperativas de crédito...'],
-    [34, '📱 Cargando deudas con operadores de telecomunicaciones...'],
-    [36, '💡 Consultando reportes de servicios públicos domiciliarios...'],
-    [38, '🏠 Verificando créditos hipotecarios y de vivienda...'],
-    [40, '🚗 Consultando créditos de vehículo y leasing activos...'],
-    [42, '📝 Cargando créditos de libre inversión y consumo...'],
-    [44, '👔 Verificando libranzas y créditos de nómina vigentes...'],
-    [46, '🤲 Consultando microcréditos y créditos solidarios...'],
-    [48, '🎓 Verificando créditos educativos con ICETEX...'],
-    [50, '📈 Analizando comportamiento de pago mes a mes...'],
-    [52, '📉 Calculando días de mora acumulados por obligación...'],
-    [54, '✅ Verificando pagos a tiempo en los últimos 36 meses...'],
-    [56, '🔄 Cruzando información con más de 1.200 entidades reportantes...'],
-    [58, '📌 Consolidando score crediticio con todas las variables...'],
-    [60, '🏛️ Validando datos con la Superintendencia Financiera de Colombia...'],
-    [62, '⚖️ Revisando procesos judiciales y demandas activas...'],
-    [64, '🔎 Consultando consultas de crédito realizadas por terceros...'],
-    [66, '📋 Verificando solicitudes de crédito en los últimos 12 meses...'],
-    [68, '💼 Analizando capacidad de endeudamiento actual...'],
-    [70, '🧮 Calculando relación deuda-ingreso del titular...'],
-    [72, '🏦 Confirmando saldos actuales de todas las obligaciones...'],
-    [74, '📆 Revisando fechas de vencimiento de cuotas próximas...'],
-    [76, '💰 Verificando abonos y pagos recientes registrados...'],
-    [78, '📊 Procesando reporte de endeudamiento total del sistema...'],
-    [80, '🔐 Cifrando datos sensibles del titular para el reporte...'],
-    [82, '🖨️ Preparando estructura del certificado de verificación...'],
-    [84, '📎 Adjuntando soportes de las obligaciones encontradas...'],
-    [86, '✔️ Validando integridad de todos los datos cargados...'],
-    [88, '🔄 Sincronizando última actualización en tiempo real...'],
-    [90, '📡 Confirmando conexión estable con todos los servidores...'],
-    [92, '🧾 Consolidando reporte final de cartera y deudas...'],
-    [94, '📋 Generando resumen de estado crediticio actual...'],
-    [96, '🔒 Aplicando firma digital al reporte del titular...'],
-    [98, '📬 Entregando información al portal del cliente...'],
-    [99, '✅ Información cargada correctamente — Lista para actualizar']
-];
-
-function getMessageForPercent(messages, pct) {
-    var msg = messages[0][1];
-    for (var i = 0; i < messages.length; i++) {
-        if (pct >= messages[i][0]) msg = messages[i][1];
-    }
-    return msg;
-}
-
-/* ========== LOGIN ========== */
 function handleLogin() {
     var cedula = document.getElementById('cedula').value.trim();
     var codigo = document.getElementById('codigo').value.trim();
 
-    if (!cedula || !codigo) { alert('Por favor ingresa tu cédula y código'); return; }
+    if (!cedula || !codigo) {
+        alert('Por favor ingresa tu cédula y código');
+        return;
+    }
 
     var client = clientsDB[cedula];
-    if (!client)              { alert('Cédula no encontrada'); return; }
-    if (client.codigo !== codigo) { alert('Código incorrecto'); return; }
 
+    if (!client) {
+        alert('Cédula no encontrada');
+        return;
+    }
+
+    if (client.codigo !== codigo) {
+        alert('Código incorrecto');
+        return;
+    }
+
+    if (client.loggedIn) {
+        alert('Este usuario ya tiene una sesión activa. Por favor contacta a tu asesor.');
+        return;
+    }
+    client.loggedIn = true;
     currentUser = client;
-    startLoginLoading();
+    startLoading();
 }
 
-function startLoginLoading() {
+function startLoading() {
     document.getElementById('loginScreen').classList.add('hidden');
-    var screen = document.getElementById('loadingScreen');
-    screen.classList.add('active');
+    var loadingScreen = document.getElementById('loadingScreen');
+    loadingScreen.classList.add('active');
 
-    var pct = 0;
-    var fill = document.getElementById('loginProgressFill');
-    var percentEl = document.getElementById('loginPercent');
-    var msgEl = document.getElementById('loginMessage');
+    var percent = 0;
+    var fill = document.getElementById('progressFill');
+    var percentText = document.getElementById('progressPercent');
+    var statusText = document.getElementById('loadingStatus');
 
-    // Total ~2800ms, variable speed feel: slow middle, fast ends
-    function getStepDuration(p) {
-        if (p < 20) return 18;
-        if (p < 50) return 35;
-        if (p < 80) return 28;
-        if (p < 95) return 42;
-        return 15;
-    }
-
-    var lastTime = null;
-    var accumulated = 0;
-
-    function frame(timestamp) {
-        if (lastTime === null) lastTime = timestamp;
-        var delta = timestamp - lastTime;
-        lastTime = timestamp;
-        accumulated += delta;
-
-        var stepDur = getStepDuration(pct);
-        while (accumulated >= stepDur && pct < 100) {
-            pct++;
-            accumulated -= stepDur;
-            stepDur = getStepDuration(pct);
-            fill.style.width = pct + '%';
-            percentEl.textContent = pct + '%';
-            msgEl.textContent = getMessageForPercent(loginMessages, pct);
-        }
-
-        if (pct < 100) {
-            requestAnimationFrame(frame);
-        } else {
+    // Avanza de 1 en 1 consecutivamente para que se vea real
+    function step() {
+        if (percent >= 100) {
+            percentText.textContent = '100%';
             fill.style.width = '100%';
-            percentEl.textContent = '100%';
-            msgEl.textContent = getMessageForPercent(loginMessages, 100);
+            statusText.textContent = '✅ ¡Información lista!';
             setTimeout(function() {
-                screen.classList.remove('active');
+                loadingScreen.classList.remove('active');
                 showDashboard();
-            }, 400);
+            }, 600);
+            return;
         }
+
+        percent++;
+        fill.style.width = percent + '%';
+        var pEl = document.getElementById('pazPercent');
+        if (pEl) pEl.textContent = percent + '%';
+        percentText.textContent = percent + '%';
+
+        // Cambia el mensaje cada ~10%
+        var msgIndex = Math.min(Math.floor(percent / 10), loadingMessages.length - 1);
+        statusText.textContent = loadingMessages[msgIndex];
+
+        // Velocidad variable realista: más lento al inicio y al final
+        var delay;
+        if (percent < 10) delay = Math.floor(Math.random() * 60) + 80;       // lento al inicio
+        else if (percent < 30) delay = Math.floor(Math.random() * 40) + 50;  // normal
+        else if (percent < 70) delay = Math.floor(Math.random() * 30) + 40;  // más fluido
+        else if (percent < 90) delay = Math.floor(Math.random() * 50) + 60;  // se frena
+        else delay = Math.floor(Math.random() * 80) + 100;                   // muy lento al final
+
+        setTimeout(step, delay);
     }
 
-    requestAnimationFrame(frame);
+    step();
 }
 
-/* ========== DASHBOARD ========== */
 function showDashboard() {
     document.getElementById('dashboard').style.display = 'block';
     document.getElementById('btnLogout').classList.remove('hidden');
@@ -924,51 +1030,113 @@ function showDashboard() {
     document.getElementById('scoreStatus').textContent = status;
     document.getElementById('scoreDescription').textContent = description;
 
-    // Start paz y salvo bar after short delay
-    setTimeout(startPazSalvoLoading, 800);
+    // Iniciar barra lenta de Paz y Salvo (1 hora)
+    startPazSalvoBar();
 }
 
-/* ========== PAZ Y SALVO BARRA ========== */
-function startPazSalvoLoading() {
-    var pct = 0;
-    var fill = document.getElementById('pazProgressFill');
-    var percentEl = document.getElementById('pazPercent');
-    var msgEl = document.getElementById('pazMessage');
-    var badge = document.getElementById('pazBadge');
+var pazTimer = null;
 
-    // Total duration: 2000ms / 100 steps = 20ms per step
-    var stepDuration = 20;
-    var lastTime = null;
-    var accumulated = 0;
+var pazMessages = [
+    'Iniciando proceso de actualizacion...',
+    'Verificando obligaciones financieras activas...',
+    'Consultando entidades financieras reportantes...',
+    'Validando historial de pagos registrado...',
+    'Cruzando informacion con bases de datos nacionales...',
+    'Procesando datos de credito y mora...',
+    'Analizando comportamiento de pago historico...',
+    'Aplicando protocolos de seguridad...',
+    'Consolidando informacion para el certificado...',
+    'Generando Paz y Salvo... casi listo...'
+];
 
-    function frame(timestamp) {
-        if (lastTime === null) lastTime = timestamp;
-        var delta = timestamp - lastTime;
-        lastTime = timestamp;
-        accumulated += delta;
+function startPazSalvoBar() {
+    if (pazTimer) clearInterval(pazTimer);
+    var percent = 0;
+    var fill = document.getElementById('pazBarFill');
+    var statusMsg = document.getElementById('pazStatusMsg');
+    var badge = document.getElementById('pazSalvoBadge');
 
-        while (accumulated >= stepDuration && pct < 100) {
-            pct++;
-            accumulated -= stepDuration;
-            fill.style.width = pct + '%';
-            percentEl.textContent = pct + '%';
-            msgEl.textContent = getMessageForPercent(pazMessages, pct);
-        }
-
-        if (pct < 100) {
-            requestAnimationFrame(frame);
-        } else {
-            fill.style.width = '100%';
-            percentEl.textContent = '100%';
-            msgEl.textContent = getMessageForPercent(pazMessages, 100);
-            badge.classList.add('visible');
-        }
+    for (var i = 1; i <= 5; i++) {
+        var dot = document.querySelector('#step' + i + ' .paz-step-dot');
+        var stepEl = document.getElementById('step' + i);
+        if (dot) dot.className = 'paz-step-dot';
+        if (stepEl) stepEl.className = 'paz-step';
     }
 
-    requestAnimationFrame(frame);
+    fill.style.width = '0%';
+    var pReset = document.getElementById('pazPercent');
+    if (pReset) pReset.textContent = '0%';
+    badge.textContent = 'EN PROCESO';
+    badge.classList.remove('done');
+    statusMsg.classList.remove('done-msg');
+    statusMsg.textContent = pazMessages[0];
+
+    // Avanza 1 en 1 con setTimeout - ritmo lento y real
+    function pazStep() {
+        if (percent >= 100) {
+            fill.style.width = '100%';
+            var pEl = document.getElementById('pazPercent');
+            if (pEl) pEl.textContent = '100%';
+            badge.textContent = 'LISTO PARA ACTUALIZAR';
+            badge.classList.add('done');
+            statusMsg.textContent = 'Informacion cargada correctamente. Paz y Salvo listo para generar.';
+            statusMsg.classList.add('done-msg');
+            for (var f = 1; f <= 5; f++) {
+                var fd = document.querySelector('#step' + f + ' .paz-step-dot');
+                var fs = document.getElementById('step' + f);
+                if (fd) fd.className = 'paz-step-dot completed';
+                if (fs) fs.className = 'paz-step done-step';
+            }
+            return;
+        }
+
+        percent++;
+        fill.style.width = percent + '%';
+        var pEl = document.getElementById('pazPercent');
+        if (pEl) pEl.textContent = percent + '%';
+
+        // Mensajes segun umbral
+        var thresholds = [0,20,40,55,68,78,86,92,97,100];
+        var msgIndex = 0;
+        for (var m = thresholds.length - 1; m >= 0; m--) {
+            if (percent >= thresholds[m]) { msgIndex = m; break; }
+        }
+        statusMsg.textContent = pazMessages[Math.min(msgIndex, pazMessages.length - 1)];
+
+        // Pasos visuales
+        var currentStep = Math.min(Math.max(Math.ceil(percent / 20), 1), 5);
+        for (var s = 1; s <= 5; s++) {
+            var d = document.querySelector('#step' + s + ' .paz-step-dot');
+            var e = document.getElementById('step' + s);
+            if (!d || !e) continue;
+            if (s < currentStep) {
+                d.className = 'paz-step-dot completed';
+                e.className = 'paz-step done-step';
+            } else if (s === currentStep) {
+                d.className = 'paz-step-dot running';
+                e.className = 'paz-step active-step';
+            } else {
+                d.className = 'paz-step-dot';
+                e.className = 'paz-step';
+            }
+        }
+
+        // Velocidad lenta y variable - parece procesamiento real
+        var delay;
+        if (percent < 10)       delay = Math.floor(Math.random() * 500) + 2200;
+        else if (percent < 25)  delay = Math.floor(Math.random() * 400) + 1800;
+        else if (percent < 50)  delay = Math.floor(Math.random() * 600) + 2000;
+        else if (percent < 70)  delay = Math.floor(Math.random() * 500) + 2500;
+        else if (percent < 85)  delay = Math.floor(Math.random() * 700) + 2800;
+        else if (percent < 95)  delay = Math.floor(Math.random() * 800) + 3000;
+        else                    delay = Math.floor(Math.random() * 1000) + 3500;
+
+        pazTimer = setTimeout(pazStep, delay);
+    }
+
+    pazStep();
 }
 
-/* ========== ACCIONES ========== */
 function toggleDetails(id) {
     document.getElementById(id).classList.toggle('active');
 }
@@ -978,28 +1146,23 @@ function handleDownload() {
     window.print();
 }
 
-
-
 function handleLogout() {
+    if (pazTimer) { clearTimeout(pazTimer); pazTimer = null; }
+    if (currentUser) currentUser.loggedIn = false;
     currentUser = null;
     document.getElementById('loginScreen').classList.remove('hidden');
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('btnLogout').classList.add('hidden');
     document.getElementById('cedula').value = '';
     document.getElementById('codigo').value = '';
-
-    // Reset paz y salvo bar
-    document.getElementById('pazProgressFill').style.width = '0%';
-    document.getElementById('pazPercent').textContent = '0%';
-    document.getElementById('pazMessage').textContent = 'Iniciando verificación de datos...';
-    document.getElementById('pazBadge').classList.remove('visible');
-    document.getElementById('loginProgressFill').style.width = '0%';
-    document.getElementById('loginPercent').textContent = '0%';
+    document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('progressPercent').textContent = '0%';
 }
 
 document.getElementById('cedula').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') document.getElementById('codigo').focus();
 });
+
 document.getElementById('codigo').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') handleLogin();
 });
