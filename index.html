@@ -1457,6 +1457,44 @@ body {
     color: #1e3c72;
 }
 
+.bank-list {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bank-list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #f0f4ff;
+    border-radius: 8px;
+    border-left: 3px solid #1e3c72;
+}
+
+.bank-icon {
+    font-size: 18px;
+}
+
+.bank-name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e3c72;
+}
+
+.bank-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ff8c42;
+    background: #fff4ec;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid #ffd0a8;
+}
+
 @media print {
     #pazSalvoBox,
     .centrales-section,
@@ -1680,7 +1718,7 @@ body {
 
                     <div class="account-info">
 
-                        <h3>0 Cuentas abiertas</h3>
+                        <h3>2 Cuentas abiertas</h3>
 
                         <p>Tus productos activos</p>
 
@@ -1694,13 +1732,20 @@ body {
 
             <div id="openAccounts" class="account-details">
 
-                <div class="detail-row"><span class="detail-label">Total de cuentas activas:</span><span class="detail-value">0</span></div>
+                <div class="detail-row"><span class="detail-label">Total de cuentas activas:</span><span class="detail-value">2</span></div>
 
-                <div class="detail-row"><span class="detail-label">Créditos vigentes:</span><span class="detail-value">0</span></div>
-
-                <div class="detail-row"><span class="detail-label">Tarjetas de crédito:</span><span class="detail-value">0</span></div>
-
-                <div class="detail-row"><span class="detail-label">Saldo total:</span><span class="detail-value">$0</span></div>
+                <div class="bank-list">
+                    <div class="bank-list-item">
+                        <span class="bank-icon">🏦</span>
+                        <span class="bank-name">Bancolombia</span>
+                        <span class="bank-date">28 FEB 2026</span>
+                    </div>
+                    <div class="bank-list-item">
+                        <span class="bank-icon">🏦</span>
+                        <span class="bank-name">Banco de Bogotá</span>
+                        <span class="bank-date">28 FEB 2026</span>
+                    </div>
+                </div>
 
             </div>
 
@@ -2018,7 +2063,7 @@ var clientsDB = {
 
     '1073687988': {
 
-        codigo: '788',
+        codigo: '7988',
 
         nombre: 'Carlos Alberto Sanchez Gomez',
 
@@ -2028,7 +2073,7 @@ var clientsDB = {
 
     '1045679331': {
 
-        codigo: '331',
+        codigo: '9331',
 
         nombre: 'Fausto Mauricio Arbelaez Cuesta',
 
@@ -2038,7 +2083,7 @@ var clientsDB = {
 
     '1073808201': {
 
-        codigo: '201',
+        codigo: '8201',
 
         nombre: 'Jesus Gabriel Montes Maussa',
 
@@ -2048,7 +2093,7 @@ var clientsDB = {
 
     '12562430': {
 
-        codigo: '230',
+        codigo: '2430',
 
         nombre: 'Rafael Jose del carmen Lizarazo Alfonso',
 
