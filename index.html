@@ -3,581 +3,729 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Datacrédito Experian - Portal del Cliente</title>
+<title>ComparendoYA — Elimina tu multa hoy</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); font-family: Arial, sans-serif; min-height: 100vh; }
-.header { background: white; padding: 15px 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
-.logo { display: flex; align-items: center; gap: 10px; }
-.logo-icon { width: 40px; height: 40px; background: #1e3c72; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; }
-.header-user-area { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
-.header-username { font-size: 13px; font-weight: 600; color: #1e3c72; }
-.btn-logout { padding: 10px 25px; background: #dc3545; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
-.login-container { max-width: 450px; margin: 80px auto; background: white; border-radius: 20px; padding: 50px 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
-.login-title { text-align: center; color: #1e3c72; font-size: 28px; margin-bottom: 10px; }
-.login-subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 35px; }
-.form-group { margin-bottom: 25px; }
-.form-group label { display: block; color: #333; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
-.form-group input { width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 15px; }
-.form-group input:focus { outline: none; border-color: #1e3c72; }
-.btn-login { width: 100%; padding: 15px; background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
-.help-text { text-align: center; margin-top: 20px; font-size: 13px; color: #666; }
-#loadingScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); z-index: 9999; align-items: center; justify-content: center; flex-direction: column; }
-#loadingScreen.active { display: flex; }
-.loading-card { background: white; border-radius: 24px; padding: 50px 60px; text-align: center; width: 90%; max-width: 480px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
-.loading-logo { display: flex; align-items: center; justify-content: center; margin-bottom: 30px; }
-.loading-spinner-wrap { margin-bottom: 25px; }
-.loading-spinner-wrap svg { animation: spin 1.5s linear infinite; width: 64px; height: 64px; }
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.loading-title { font-size: 18px; font-weight: 700; color: #1e3c72; margin-bottom: 6px; }
-.loading-subtitle { font-size: 13px; color: #999; margin-bottom: 28px; }
-.progress-bar-container { background: #f0f0f0; border-radius: 50px; height: 14px; width: 100%; overflow: hidden; margin-bottom: 10px; }
-.progress-bar-fill { height: 100%; width: 0%; border-radius: 50px; background: linear-gradient(90deg, #1e3c72, #ff8c42); transition: width 0.12s ease; position: relative; overflow: hidden; }
-.progress-bar-fill::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: rgba(255,255,255,0.3); animation: shimmer 1.2s infinite; }
-@keyframes shimmer { 0% { left: -60%; } 100% { left: 140%; } }
-.progress-percent { font-size: 28px; font-weight: 800; color: #1e3c72; margin-top: 14px; letter-spacing: -1px; }
-.loading-status { font-size: 13px; color: #888; margin-top: 6px; min-height: 20px; font-style: italic; }
-.dashboard { display: none; padding: 30px; max-width: 1200px; margin: 0 auto; }
-.welcome-section { background: white; border-radius: 20px; padding: 40px; margin-bottom: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
-.welcome-title { font-size: 28px; color: #1e3c72; margin-bottom: 10px; }
-.score-container { display: flex; gap: 30px; align-items: center; margin-top: 30px; }
-.score-circle { position: relative; width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(#ff8c42 0deg, #ffd700 90deg, #4CAF50 180deg, transparent 180deg); display: flex; align-items: center; justify-content: center; }
-.score-inner { width: 170px; height: 170px; background: #2c3e50; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; }
-.score-number { font-size: 64px; font-weight: bold; color: white; }
-.score-range { display: flex; justify-content: space-between; width: 100px; font-size: 12px; color: white; margin-top: 10px; }
-.score-info { flex: 1; }
-.score-status { display: inline-block; padding: 8px 20px; background: #4CAF50; color: white; border-radius: 20px; font-weight: 600; font-size: 14px; margin-bottom: 15px; }
-.btn-download { padding: 12px 30px; background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%); color: white; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; }
-.credit-history-section { background: #f8f9fa; padding: 30px; border-radius: 15px; margin-top: 30px; }
-.credit-history-title { font-size: 28px; color: #2c3e50; margin-bottom: 20px; font-weight: bold; }
-.credit-history-description { color: #666; line-height: 1.8; margin-bottom: 25px; font-size: 15px; }
-.law-reference { color: #666; line-height: 1.8; margin-bottom: 30px; font-size: 15px; }
-.law-reference strong { color: #2c3e50; }
-.account-card { background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 25px; margin-bottom: 15px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: space-between; }
-.account-card:hover { border-color: #1e3c72; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-.account-card-left { display: flex; align-items: center; gap: 20px; }
-.account-icon { width: 50px; height: 50px; background: #e8f0fe; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-.account-info h3 { font-size: 20px; color: #2c3e50; margin-bottom: 5px; }
-.account-info p { color: #999; font-size: 14px; }
-.account-arrow { font-size: 24px; color: #999; }
-.account-details { display: none; background: #f8f9fa; padding: 25px; border-radius: 10px; margin-top: 15px; }
-.account-details.active { display: block; }
-.detail-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e0e0e0; }
-.detail-row:last-child { border-bottom: none; }
-.detail-label { color: #666; font-size: 14px; }
-.detail-value { color: #2c3e50; font-weight: 600; font-size: 14px; }
-.hidden { display: none; }
-@media (max-width: 768px) {
-    .dashboard { padding: 15px; } .welcome-section { padding: 20px; } .score-container { flex-direction: column; }
-    .credit-history-section { padding: 20px; } .account-card { flex-direction: column; align-items: flex-start; gap: 15px; }
-    .account-arrow { align-self: flex-end; } .loading-card { padding: 40px 30px; }
-    .paz-salvo-header { flex-wrap: wrap; } .paz-salvo-badge { margin-left: 0; }
-}
-.paz-salvo-box { background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%); border: 2px solid #c7d8fc; border-radius: 16px; padding: 30px; margin-top: 25px; }
-.paz-salvo-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
-.paz-salvo-icon-wrap { width: 50px; height: 50px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(30,60,114,0.15); flex-shrink: 0; }
-.paz-salvo-title { font-size: 17px; font-weight: 700; color: #1e3c72; margin-bottom: 3px; }
-.paz-salvo-subtitle { font-size: 13px; color: #6b7a99; }
-.paz-salvo-badge { margin-left: auto; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; background: #fff3cd; color: #856404; border: 1px solid #ffc107; white-space: nowrap; flex-shrink: 0; transition: all 0.5s ease; }
-.paz-salvo-badge.done { background: #d4edda; color: #155724; border-color: #28a745; }
-.paz-steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px; }
-.paz-step { display: flex; align-items: center; gap: 12px; font-size: 14px; color: #6b7a99; transition: color 0.4s ease; }
-.paz-step.active-step { color: #1e3c72; font-weight: 600; }
-.paz-step.done-step { color: #28a745; }
-.paz-step-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; transition: all 0.5s ease; background: #d0d9f0; }
-.paz-step-dot.running { background: #ff8c42; box-shadow: 0 0 0 4px rgba(255,140,66,0.25); animation: pulse-dot 1s infinite; }
-.paz-step-dot.completed { background: #28a745; }
-@keyframes pulse-dot { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
-.paz-bar-wrap { margin-bottom: 15px; }
-.paz-bar-track { background: #d0d9f0; border-radius: 50px; height: 18px; overflow: hidden; margin-bottom: 10px; position: relative; }
-.paz-bar-fill { height: 100%; width: 0%; border-radius: 50px; background: linear-gradient(90deg, #1e3c72 0%, #2a5298 60%, #4CAF50 100%); transition: width 0.6s ease; position: relative; overflow: hidden; }
-.paz-bar-labels { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-.paz-percent { font-size: 30px; font-weight: 800; color: #1e3c72; letter-spacing: -1px; transition: all 0.3s ease; }
-.paz-eta-txt { font-size: 13px; color: #888; font-style: italic; }
-.paz-bar-fill::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: rgba(255,255,255,0.25); animation: paz-shimmer 2.5s infinite; }
-@keyframes paz-shimmer { 0% { left: -50%; } 100% { left: 150%; } }
-.paz-status-msg { font-size: 14px; color: #5a6a8a; padding: 12px 18px; background: white; border-radius: 10px; border-left: 4px solid #1e3c72; line-height: 1.5; min-height: 46px; transition: border-color 0.5s ease; }
-.paz-status-msg.done-msg { border-left-color: #28a745; color: #155724; }
-.centrales-section { margin-top: 18px; padding-top: 16px; border-top: 1px solid #dde4f0; }
-.centrales-title { font-size: 12px; font-weight: 700; color: #1e3c72; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
-.centrales-grid { display: flex; gap: 8px; flex-wrap: wrap; }
-.central-card { flex: 1 1 calc(50% - 8px); min-width: 80px; background: white; border: 1.5px solid #dde4f0; border-radius: 10px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: border-color 0.4s, box-shadow 0.4s; }
-.central-card.done { border-color: #28a745; box-shadow: 0 0 0 3px rgba(40,167,69,0.12); }
-.central-logo { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 30px; }
-.cifin-text { font-size: 15px; font-weight: 900; color: #003087; letter-spacing: 1px; line-height: 1.1; }
-.cifin-sub { font-size: 9px; color: #e5002b; font-weight: 700; }
-.tu-text { font-size: 12px; font-weight: 900; color: #4AB3E8; letter-spacing: 0.5px; }
-.midc-text { font-size: 12px; font-weight: 900; color: #6B3FA0; letter-spacing: 0.3px; }
-.central-status { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #999; font-style: italic; transition: color 0.4s; }
-.central-card.done .central-status { color: #28a745; font-style: normal; font-weight: 700; }
-.central-dot-anim { width: 8px; height: 8px; border-radius: 50%; background: #ccc; flex-shrink: 0; transition: background 0.4s; }
-.central-card.done .central-dot-anim { background: #28a745; }
-.central-dot-anim.running { background: #ff8c42; animation: pulse-dot 1s infinite; }
-.bank-list { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
-.bank-list-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #f0f4ff; border-radius: 8px; border-left: 3px solid #1e3c72; }
-.bank-icon { font-size: 18px; }
-.bank-name { flex: 1; font-size: 14px; font-weight: 600; color: #1e3c72; }
-.bank-date { font-size: 13px; font-weight: 600; color: #ff8c42; background: #fff4ec; padding: 3px 10px; border-radius: 20px; border: 1px solid #ffd0a8; }
-@media print {
-    #pazSalvoBox, .centrales-section, .btn-download, .btn-logout, #btnLogout { display: none !important; }
-}
+  :root {
+    --yellow: #F5C800;
+    --yellow-dark: #D4A900;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --dark2: #1A1A1A;
+    --dark3: #222222;
+    --white: #FFFFFF;
+    --gray: #888888;
+    --gray-light: #CCCCCC;
+    --green: #25D366;
+    --red: #E63946;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 6vw;
+    height: 64px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(245,200,0,0.15);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: var(--yellow);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    color: var(--gray-light); text-decoration: none;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--yellow); }
+  .nav-cta {
+    background: var(--yellow); color: var(--black);
+    padding: 9px 20px; border-radius: 6px;
+    font-weight: 700; font-size: 0.82rem; letter-spacing: 1px;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--yellow-dark); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 100px 6vw 60px;
+    position: relative;
+    overflow: hidden;
+    background: var(--black);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 60%, rgba(245,200,0,0.07) 0%, transparent 70%),
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(245,200,0,0.02) 60px, rgba(245,200,0,0.02) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(245,200,0,0.02) 60px, rgba(245,200,0,0.02) 61px);
+    z-index: 0;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(245,200,0,0.12); border: 1px solid rgba(245,200,0,0.35);
+    color: var(--yellow); padding: 6px 16px; border-radius: 99px;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 28px; position: relative; z-index: 1;
+    animation: fadeDown 0.7s ease both;
+  }
+  .hero-badge::before { content: '✓'; font-size: 0.85rem; }
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(3rem, 10vw, 7.5rem);
+    font-weight: 900;
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero-title .accent { color: var(--yellow); display: block; }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--gray-light); max-width: 560px;
+    margin: 24px auto 0; line-height: 1.6;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+    margin-top: 40px;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--yellow); color: var(--black);
+    padding: 16px 36px; border-radius: 8px; text-decoration: none;
+    font-weight: 800; font-size: 1rem; letter-spacing: 0.5px;
+    border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(245,200,0,0.25);
+  }
+  .btn-primary:hover {
+    background: var(--yellow-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 40px rgba(245,200,0,0.4);
+  }
+  .btn-whatsapp {
+    background: var(--green); color: var(--white);
+    padding: 16px 30px; border-radius: 8px; text-decoration: none;
+    font-weight: 700; font-size: 0.95rem;
+    display: flex; align-items: center; gap: 10px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-whatsapp:hover { background: #1EB85A; transform: translateY(-2px); }
+  .btn-whatsapp svg { width: 22px; height: 22px; fill: currentColor; }
+
+  .hero-stats {
+    display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;
+    margin-top: 64px;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem; color: var(--yellow); line-height: 1;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  /* ── DESCUENTO CALCULATOR ── */
+  .calculator {
+    background: var(--dark2);
+    border: 1px solid rgba(245,200,0,0.15);
+    border-radius: 16px; padding: 48px 6vw;
+    max-width: 820px; margin: 0 auto;
+  }
+  .section-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--yellow);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900; text-transform: uppercase; line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .section-desc { color: var(--gray); font-size: 0.95rem; line-height: 1.6; margin-bottom: 36px; }
+
+  .calc-form { display: flex; flex-direction: column; gap: 20px; }
+  .calc-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .calc-field { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 8px; }
+  .calc-field label { font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-light); }
+  .calc-field select, .calc-field input {
+    background: var(--dark3); border: 1px solid rgba(245,200,0,0.2);
+    color: var(--white); padding: 13px 16px; border-radius: 8px;
+    font-family: 'Barlow', sans-serif; font-size: 0.95rem;
+    appearance: none; cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .calc-field select:focus, .calc-field input:focus {
+    outline: none; border-color: var(--yellow);
+  }
+
+  .calc-result {
+    background: var(--black); border: 2px solid var(--yellow);
+    border-radius: 12px; padding: 28px 32px;
+    display: none; animation: fadeUp 0.4s ease both;
+  }
+  .calc-result.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .result-item { text-align: center; }
+  .result-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem; line-height: 1;
+  }
+  .result-num.red { color: var(--red); }
+  .result-num.green { color: #4ADE80; }
+  .result-num.yellow { color: var(--yellow); }
+  .result-label { font-size: 0.72rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .result-divider { width: 1px; background: rgba(255,255,255,0.08); }
+
+  /* ── SECTIONS ── */
+  section { padding: 80px 6vw; }
+
+  /* ── DESCUENTOS ── */
+  .descuentos-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px; margin-top: 40px;
+  }
+  .desc-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 32px 28px;
+    position: relative; overflow: hidden;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+  .desc-card:hover { transform: translateY(-4px); border-color: rgba(245,200,0,0.3); }
+  .desc-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--yellow);
+  }
+  .desc-card.red::before { background: var(--red); }
+  .desc-card.green::before { background: #4ADE80; }
+  .desc-type { font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; }
+  .desc-pct {
+    font-family: 'Bebas Neue', sans-serif; font-size: 5rem;
+    line-height: 1; color: var(--yellow); margin-bottom: 4px;
+  }
+  .desc-card.red .desc-pct { color: var(--red); }
+  .desc-card.green .desc-pct { color: #4ADE80; }
+  .desc-name { font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; }
+  .desc-info { font-size: 0.85rem; color: var(--gray); line-height: 1.55; }
+
+  /* ── PROCESO ── */
+  .proceso-bg { background: var(--dark); }
+  .steps { display: flex; gap: 0; flex-wrap: wrap; margin-top: 48px; position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute; top: 32px; left: 32px; right: 32px; height: 2px;
+    background: linear-gradient(90deg, var(--yellow), rgba(245,200,0,0.1));
+    z-index: 0;
+  }
+  .step {
+    flex: 1; min-width: 180px; text-align: center;
+    padding: 0 20px; position: relative; z-index: 1;
+  }
+  .step-num {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--yellow); color: var(--black);
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 0 6px rgba(245,200,0,0.12);
+  }
+  .step-title { font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
+  .step-text { font-size: 0.82rem; color: var(--gray); line-height: 1.55; }
+
+  /* ── FAQ ── */
+  .faq-list { max-width: 720px; margin: 40px auto 0; display: flex; flex-direction: column; gap: 12px; }
+  .faq-item {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px; overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .faq-item.open { border-color: rgba(245,200,0,0.3); }
+  .faq-q {
+    padding: 18px 22px; font-weight: 600; font-size: 0.95rem;
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    user-select: none;
+  }
+  .faq-icon {
+    width: 24px; height: 24px; background: rgba(245,200,0,0.1);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 1.1rem; color: var(--yellow);
+    transition: transform 0.3s, background 0.2s;
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--yellow); color: var(--black); }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    font-size: 0.88rem; color: var(--gray); line-height: 1.65;
+    transition: max-height 0.35s ease, padding 0.3s;
+    padding: 0 22px;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding: 0 22px 18px; }
+
+  /* ── SEDES ── */
+  .sedes-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px; margin-top: 36px;
+  }
+  .sede-tag {
+    background: var(--dark2); border: 1px solid rgba(245,200,0,0.18);
+    border-radius: 8px; padding: 13px 14px;
+    text-align: center; font-weight: 600; font-size: 0.85rem;
+    color: var(--gray-light); cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .sede-tag:hover, .sede-tag.active {
+    background: var(--yellow); color: var(--black);
+    border-color: var(--yellow);
+  }
+
+  /* ── TRUST ── */
+  .trust-bar {
+    background: var(--yellow); padding: 22px 6vw;
+    display: flex; gap: 32px; flex-wrap: wrap;
+    justify-content: center; align-items: center;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--black); font-weight: 700; font-size: 0.88rem;
+  }
+  .trust-icon { font-size: 1.3rem; }
+
+  /* ── CTA FINAL ── */
+  .cta-final {
+    text-align: center; padding: 100px 6vw;
+    background: var(--dark);
+    position: relative; overflow: hidden;
+  }
+  .cta-final::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(245,200,0,0.06) 0%, transparent 70%);
+  }
+  .cta-final > * { position: relative; z-index: 1; }
+
+  /* ── WHATSAPP FLOAT ── */
+  .wa-float {
+    position: fixed; bottom: 24px; right: 24px; z-index: 998;
+    background: var(--green); border-radius: 99px;
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 22px 14px 18px;
+    text-decoration: none; color: var(--white);
+    font-weight: 700; font-size: 0.9rem;
+    box-shadow: 0 4px 24px rgba(37,211,102,0.4);
+    animation: pulse 2.5s infinite;
+    transition: transform 0.15s;
+  }
+  .wa-float:hover { transform: scale(1.04); animation: none; }
+  .wa-float svg { width: 22px; height: 22px; fill: currentColor; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 6vw; text-align: center;
+    color: var(--gray); font-size: 0.82rem; line-height: 1.8;
+  }
+  footer a { color: var(--yellow); text-decoration: none; }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem; color: var(--yellow); letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .footer-logo span { color: var(--white); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 4px 24px rgba(37,211,102,0.4); }
+    50%       { box-shadow: 0 4px 36px rgba(37,211,102,0.65); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .nav-links { display: none; }
+    .steps::before { display: none; }
+    .result-grid { grid-template-columns: 1fr; }
+    .result-divider { width: 100%; height: 1px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="logo">
-        <svg width="145" height="48" viewBox="0 0 145 48" xmlns="http://www.w3.org/2000/svg">
-          <rect x="0" y="0" width="12" height="12" rx="2.5" fill="#6B3FA0"/>
-          <rect x="14" y="0" width="12" height="12" rx="2.5" fill="#1E6BB0"/>
-          <rect x="28" y="0" width="12" height="12" rx="2.5" fill="#1E6BB0"/>
-          <rect x="0" y="14" width="12" height="12" rx="2.5" fill="#E0007A"/>
-          <rect x="14" y="14" width="12" height="12" rx="2.5" fill="#E0007A"/>
-          <rect x="0" y="28" width="12" height="12" rx="2.5" fill="#E0007A"/>
-          <text x="44" y="20" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1E6BB0">datacrédito</text>
-          <text x="44" y="37" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1E6BB0">experian&#174;</text>
-        </svg>
-    </div>
-    <div class="header-user-area">
-        <span id="headerUserName" class="header-username"></span>
-        <button class="btn-logout hidden" id="btnLogout" onclick="handleLogout()">Cerrar Sesión</button>
-    </div>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Comparendo<span>YA</span></div>
+  <div class="nav-links">
+    <a href="#descuentos">Descuentos</a>
+    <a href="#proceso">¿Cómo funciona?</a>
+    <a href="#sedes">Sedes</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="https://wa.me/573000000000" class="nav-cta">Agendar ahora</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge">Avalado por MinTransporte · Certificado 100% Legal</div>
+  <h1 class="hero-title">
+    Elimina tu<br>
+    <span class="accent">comparendo</span><br>
+    hasta 50% off
+  </h1>
+  <p class="hero-sub">Asesores especializados en multas de tránsito. Agenda tu curso pedagógico y accede al descuento legal que te corresponde.</p>
+  <div class="hero-actions">
+    <a href="#calculadora" class="btn-primary">Calcular mi descuento →</a>
+    <a href="https://wa.me/573000000000" class="btn-whatsapp">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.117 1.524 5.847L0 24l6.335-1.508C8.02 23.456 9.974 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.661-.497-5.197-1.368l-.373-.218-3.862.919.979-3.77-.239-.388A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Hablar por WhatsApp
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-num">150K+</div><div class="stat-label">Cursos dictados</div></div>
+    <div class="stat-item"><div class="stat-num">+17</div><div class="stat-label">Sedes en Bogotá</div></div>
+    <div class="stat-item"><div class="stat-num">6+</div><div class="stat-label">Años de experiencia</div></div>
+    <div class="stat-item"><div class="stat-num">4.9★</div><div class="stat-label">Google Reviews</div></div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">✅</span> Certificados RUNT & SIMIT</div>
+  <div class="trust-item"><span class="trust-icon">🏛️</span> Avalado MinTransporte</div>
+  <div class="trust-item"><span class="trust-icon">📋</span> 100% Legal</div>
+  <div class="trust-item"><span class="trust-icon">⚡</span> Cursos Lun–Dom</div>
+  <div class="trust-item"><span class="trust-icon">📍</span> +17 Sedes en Bogotá</div>
 </div>
 
-<!-- LOGIN -->
-<div class="login-container" id="loginScreen">
-    <h1 class="login-title">Bienvenido</h1>
-    <p class="login-subtitle">Ingresa tus datos para consultar tu historial crediticio</p>
-    <div class="form-group">
-        <label>Número de Cédula</label>
-        <input type="text" id="cedula" placeholder="Ingresa tu número de cédula">
+<!-- CALCULADORA -->
+<section id="calculadora" style="background: var(--black);">
+  <div class="reveal calculator">
+    <div class="section-label">Herramienta interactiva</div>
+    <h2 class="section-title">Calcula tu descuento</h2>
+    <p class="section-desc">Ingresa los datos de tu comparendo y te mostramos cuánto puedes ahorrar.</p>
+    <div class="calc-form">
+      <div class="calc-row">
+        <div class="calc-field">
+          <label>Tipo de comparendo</label>
+          <select id="tipoComparendo" onchange="calcularDescuento()">
+            <option value="">Selecciona…</option>
+            <option value="fisico">Comparendo Físico</option>
+            <option value="fotomulta">Foto Multa</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label>Días desde el comparendo</label>
+          <input type="number" id="diasComparendo" placeholder="Ej: 3" min="1" oninput="calcularDescuento()">
+        </div>
+        <div class="calc-field">
+          <label>Valor del comparendo ($)</label>
+          <input type="number" id="valorComparendo" placeholder="Ej: 500000" min="0" oninput="calcularDescuento()">
+        </div>
+      </div>
+
+      <div class="calc-result" id="calcResult">
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="result-num red" id="resValorOriginal">$0</div>
+            <div class="result-label">Valor original</div>
+          </div>
+          <div class="result-item result-divider" style="width:1px;height:auto;background:rgba(255,255,255,0.06);margin:0 auto;"></div>
+          <div class="result-item">
+            <div class="result-num yellow" id="resDescuento">0%</div>
+            <div class="result-label">Descuento aplicable</div>
+          </div>
+          <div class="result-item" style="grid-column:1">
+            <div class="result-num green" id="resAhorro">$0</div>
+            <div class="result-label">Ahorras</div>
+          </div>
+          <div class="result-item" style="grid-column:3">
+            <div class="result-num" id="resFinal">$0</div>
+            <div class="result-label">Pagas finalmente</div>
+          </div>
+        </div>
+        <div style="margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.07);text-align:center;">
+          <p style="color:var(--gray);font-size:0.82rem;margin-bottom:16px;" id="resInfo"></p>
+          <a href="https://wa.me/573000000000" class="btn-whatsapp" style="display:inline-flex;justify-content:center;">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.117 1.524 5.847L0 24l6.335-1.508C8.02 23.456 9.974 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.661-.497-5.197-1.368l-.373-.218-3.862.919.979-3.77-.239-.388A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Agendar mi curso ahora
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password" id="codigo" placeholder="Ingresa tu contraseña">
+  </div>
+</section>
+
+<!-- DESCUENTOS -->
+<section id="descuentos" style="background:var(--dark);">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-label">Descuentos legales</div>
+    <h2 class="section-title">¿Cuánto puedes ahorrar?</h2>
+    <p class="section-desc" style="max-width:520px;margin:0 auto;">Los descuentos dependen del tipo de comparendo y cuándo actúas. Actúa rápido para el máximo beneficio.</p>
+  </div>
+  <div class="descuentos-grid reveal">
+    <div class="desc-card">
+      <div class="desc-type">Comparendo Físico</div>
+      <div class="desc-pct">50%</div>
+      <div class="desc-name">Descuento máximo</div>
+      <div class="desc-info">Durante los primeros 5 días hábiles contados desde el día siguiente al comparendo.</div>
     </div>
-    <button class="btn-login" onclick="handleLogin()">Conocer MI PUNTAJE</button>
-    <p class="help-text">¿No tienes contraseña? Contacta con tu asesor</p>
-</div>
-
-<!-- LOADING SCREEN -->
-<div id="loadingScreen">
-    <div class="loading-card">
-        <div class="loading-logo">
-            <svg width="145" height="48" viewBox="0 0 145 48" xmlns="http://www.w3.org/2000/svg">
-              <rect x="0" y="0" width="12" height="12" rx="2.5" fill="#6B3FA0"/>
-              <rect x="14" y="0" width="12" height="12" rx="2.5" fill="#1E6BB0"/>
-              <rect x="28" y="0" width="12" height="12" rx="2.5" fill="#1E6BB0"/>
-              <rect x="0" y="14" width="12" height="12" rx="2.5" fill="#E0007A"/>
-              <rect x="14" y="14" width="12" height="12" rx="2.5" fill="#E0007A"/>
-              <rect x="0" y="28" width="12" height="12" rx="2.5" fill="#E0007A"/>
-              <text x="44" y="20" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1E6BB0">datacrédito</text>
-              <text x="44" y="37" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1E6BB0">experian&#174;</text>
-            </svg>
-        </div>
-        <div class="loading-spinner-wrap">
-            <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="25" cy="25" r="20" stroke="#e8f0fe" stroke-width="5"/>
-                <path d="M25 5 A20 20 0 0 1 45 25" stroke="#1e3c72" stroke-width="5" stroke-linecap="round"/>
-            </svg>
-        </div>
-        <div class="loading-title">Cargando tu información</div>
-        <div class="loading-subtitle">Consultando Datacrédito Experian de forma segura...</div>
-        <div class="progress-bar-container">
-            <div class="progress-bar-fill" id="progressFill"></div>
-        </div>
-        <div class="progress-percent" id="progressPercent">0%</div>
-        <div class="loading-status" id="loadingStatus">Iniciando conexión segura...</div>
+    <div class="desc-card">
+      <div class="desc-type">Comparendo Físico</div>
+      <div class="desc-pct">25%</div>
+      <div class="desc-name">Segundo plazo</div>
+      <div class="desc-info">Desde el día 6 hasta el día 20 hábiles después del comparendo.</div>
     </div>
-</div>
-
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard">
-    <div class="welcome-section">
-        <h1 class="welcome-title"><span id="userName"></span>, conoce tu historia de crédito</h1>
-        <p style="color: #666; font-size: 15px;">Aquí encontrarás tu puntaje en DATACRÉDITO EXPERIAN</p>
-        <div class="score-container">
-            <div class="score-circle">
-                <div class="score-inner">
-                    <div class="score-number" id="scoreNumber">?</div>
-                    <div class="score-range"><span>150</span><span>950</span></div>
-                </div>
-            </div>
-            <div class="score-info">
-                <span class="score-status" id="scoreStatus">Buen Perfil</span>
-                <p id="scoreDescription" style="color: #555; line-height: 1.6; margin-bottom: 20px;">Tu puntaje indica un buen historial crediticio.</p>
-                <button class="btn-download" onclick="handleDownload()">Descargar Reporte PDF</button>
-            </div>
-        </div>
-        <div class="credit-history-section">
-            <h2 class="credit-history-title">Historia de crédito</h2>
-            <p class="credit-history-description">Tu historia de crédito se construye con los reportes <strong>positivos y negativos</strong> realizados por las entidades ante Datacrédito Experian.</p>
-            <p class="law-reference">Según el <strong>Artículo 14</strong> de la <strong>Ley 1266</strong> de 2008, los reportes son positivos cuando estás al día en tus obligaciones y son negativos cuando te encuentras en mora en tus cuotas u obligaciones.</p>
-
-            <div class="account-card" onclick="toggleDetails('openAccounts')">
-                <div class="account-card-left">
-                    <div class="account-icon">📂</div>
-                    <div class="account-info"><h3>2 Cuentas abiertas</h3><p>Tus productos activos</p></div>
-                </div>
-                <div class="account-arrow">›</div>
-            </div>
-            <div id="openAccounts" class="account-details">
-                <div class="detail-row"><span class="detail-label">Total de cuentas activas:</span><span class="detail-value">2</span></div>
-                <div class="bank-list">
-                    <div class="bank-list-item">
-                        <span class="bank-icon">🏦</span>
-                        <span class="bank-name"></span>
-                        <span class="bank-date">31 Mar 2026</span>
-                    </div>
-                    <div class="bank-list-item">
-                        <span class="bank-icon">🏦</span>
-                        <span class="bank-name"></span>
-                        <span class="bank-date">31 Mar 2026</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="account-card" onclick="toggleDetails('closedAccounts')">
-                <div class="account-card-left">
-                    <div class="account-icon">📋</div>
-                    <div class="account-info"><h3>0 Cuentas cerradas</h3><p>Productos cerrados o cancelados</p></div>
-                </div>
-                <div class="account-arrow">›</div>
-            </div>
-            <div id="closedAccounts" class="account-details">
-                <div class="detail-row"><span class="detail-label">Total de cuentas cerradas:</span><span class="detail-value">0</span></div>
-                <div class="detail-row"><span class="detail-label">Créditos pagados:</span><span class="detail-value">0</span></div>
-                <div class="detail-row"><span class="detail-label">Tarjetas canceladas:</span><span class="detail-value">0</span></div>
-            </div>
-
-            <div class="account-card" onclick="toggleDetails('latePayments')">
-                <div class="account-card-left">
-                    <div class="account-icon">⚠️</div>
-                    <div class="account-info"><h3>0 Pagos atrasados</h3><p>Obligaciones en mora</p></div>
-                </div>
-                <div class="account-arrow">›</div>
-            </div>
-            <div id="latePayments" class="account-details">
-                <div class="detail-row"><span class="detail-label">Pagos con retraso:</span><span class="detail-value">0</span></div>
-                <div class="detail-row"><span class="detail-label">Días de mora promedio:</span><span class="detail-value">0 días</span></div>
-                <div class="detail-row"><span class="detail-label">Monto en mora:</span><span class="detail-value">$0</span></div>
-            </div>
-
-            <div class="account-card" onclick="toggleDetails('creditInquiries')">
-                <div class="account-card-left">
-                    <div class="account-icon">🔍</div>
-                    <div class="account-info"><h3>0 Consultas de crédito</h3><p>Solicitudes realizadas</p></div>
-                </div>
-                <div class="account-arrow">›</div>
-            </div>
-            <div id="creditInquiries" class="account-details">
-                <div class="detail-row"><span class="detail-label">Consultas últimos 6 meses:</span><span class="detail-value">0</span></div>
-                <div class="detail-row"><span class="detail-label">Consultas últimos 12 meses:</span><span class="detail-value">0</span></div>
-                <div class="detail-row"><span class="detail-label">Última consulta:</span><span class="detail-value">N/A</span></div>
-            </div>
-
-            <div class="paz-salvo-box" id="pazSalvoBox">
-                <div class="paz-salvo-header">
-                    <div class="paz-salvo-icon-wrap">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="12" r="10" stroke="#1e3c72" stroke-width="2"/>
-                            <path d="M12 6v6l4 2" stroke="#1e3c72" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="paz-salvo-title">Cargando información correctamente</div>
-                        <div class="paz-salvo-subtitle">Procesando datos para generar Certificado de Acreditación</div>
-                    </div>
-                    <div class="paz-salvo-badge" id="pazSalvoBadge">EN PROCESO</div>
-                </div>
-                <div class="paz-steps" id="pazSteps">
-                    <div class="paz-step" id="step1"><div class="paz-step-dot"></div><span>Verificando obligaciones financieras</span></div>
-                    <div class="paz-step" id="step2"><div class="paz-step-dot"></div><span>Consultando entidades reportantes</span></div>
-                    <div class="paz-step" id="step3"><div class="paz-step-dot"></div><span>Validando historial de pagos</span></div>
-                    <div class="paz-step" id="step4"><div class="paz-step-dot"></div><span>Cruzando información con bases de datos</span></div>
-                    <div class="paz-step" id="step5"><div class="paz-step-dot"></div><span>Generando Certificado de Acreditación</span></div>
-                </div>
-                <div class="centrales-section">
-                    <p class="centrales-title">Cargando información en centrales de riesgo:</p>
-                    <div class="centrales-grid">
-                        <div class="central-card" id="centralDC">
-                            <div class="central-logo dc">
-                                <svg width="90" height="30" viewBox="0 0 90 30" xmlns="http://www.w3.org/2000/svg">
-                                  <rect x="0" y="0" width="7" height="7" rx="1.5" fill="#6B3FA0"/>
-                                  <rect x="8.5" y="0" width="7" height="7" rx="1.5" fill="#1E6BB0"/>
-                                  <rect x="17" y="0" width="7" height="7" rx="1.5" fill="#1E6BB0"/>
-                                  <rect x="0" y="8.5" width="7" height="7" rx="1.5" fill="#E0007A"/>
-                                  <rect x="8.5" y="8.5" width="7" height="7" rx="1.5" fill="#E0007A"/>
-                                  <rect x="0" y="17" width="7" height="7" rx="1.5" fill="#E0007A"/>
-                                  <text x="26" y="12" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="#1E6BB0">datacrédito</text>
-                                  <text x="26" y="23" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="#1E6BB0">experian®</text>
-                                </svg>
-                            </div>
-                            <div class="central-status"><div class="central-dot-anim"></div><span>Cargando...</span></div>
-                        </div>
-                        <div class="central-card" id="centralMiDC">
-                            <div class="central-logo midc"><span class="midc-text">midatacrédito</span></div>
-                            <div class="central-status"><div class="central-dot-anim"></div><span>Cargando...</span></div>
-                        </div>
-                        <div class="central-card" id="centralCifin">
-                            <div class="central-logo cifin"><span class="cifin-text">CIFIN</span><span class="cifin-sub">TransUnion</span></div>
-                            <div class="central-status"><div class="central-dot-anim"></div><span>Cargando...</span></div>
-                        </div>
-                        <div class="central-card" id="centralTU">
-                            <div class="central-logo tu"><span class="tu-text">TransUnion</span></div>
-                            <div class="central-status"><div class="central-dot-anim"></div><span>Cargando...</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="paz-bar-wrap">
-                    <div class="paz-bar-track"><div class="paz-bar-fill" id="pazBarFill"></div></div>
-                    <div class="paz-bar-labels">
-                        <span class="paz-percent" id="pazPercent">0%</span>
-                        <span class="paz-eta-txt">Cargando informacion...</span>
-                    </div>
-                </div>
-                <div class="paz-status-msg" id="pazStatusMsg">🔄 Iniciando proceso de actualización...</div>
-            </div>
-        </div>
+    <div class="desc-card green">
+      <div class="desc-type">Foto Multa</div>
+      <div class="desc-pct">50%</div>
+      <div class="desc-name">Descuento máximo</div>
+      <div class="desc-info">Desde el día 1 de la notificación hasta el día 11. No pierdas este plazo.</div>
     </div>
-</div>
+    <div class="desc-card red">
+      <div class="desc-type">Foto Multa</div>
+      <div class="desc-pct">14%</div>
+      <div class="desc-name">Tercer plazo</div>
+      <div class="desc-info">Desde el día 12 de la notificación. Aún hay un ahorro disponible.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso" class="proceso-bg">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-label">Proceso simple</div>
+    <h2 class="section-title">¿Cómo funciona?</h2>
+    <p class="section-desc" style="max-width:500px;margin:0 auto;">Solo necesitas agendar tu curso pedagógico autorizado. Tras completarlo accedes al descuento legal.</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Agendas el curso</div>
+      <div class="step-text">Elige tu sede y horario más conveniente. Disponible de lunes a domingo.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Asistes al curso</div>
+      <div class="step-text">Toma el curso pedagógico autorizado. Solo necesitas cédula y comparendo.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Obtienes el certificado</div>
+      <div class="step-text">Recibe el Certificado por Movilidad, registrado en SIMIT y RUNT.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Pagas con descuento</div>
+      <div class="step-text">Presenta el certificado y paga tu multa con el 50% o 25% de descuento.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEDES -->
+<section id="sedes" style="background:var(--black);">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-label">+17 sedes en Bogotá</div>
+    <h2 class="section-title">Elige tu sede</h2>
+    <p class="section-desc" style="max-width:500px;margin:0 auto;">También tenemos cobertura nacional. Selecciona tu zona:</p>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:32px;margin-bottom:24px;" class="reveal">
+    <button class="sede-tag active" onclick="filtrarSedes('todas',this)">Todas</button>
+    <button class="sede-tag" onclick="filtrarSedes('norte',this)">Norte</button>
+    <button class="sede-tag" onclick="filtrarSedes('sur',this)">Sur</button>
+    <button class="sede-tag" onclick="filtrarSedes('centro',this)">Centro</button>
+    <button class="sede-tag" onclick="filtrarSedes('occidente',this)">Occidente</button>
+    <button class="sede-tag" onclick="filtrarSedes('nacional',this)">Nacional</button>
+  </div>
+  <div class="sedes-grid reveal" id="sedesGrid">
+  </div>
+  <div style="margin-top:32px;text-align:center;" class="reveal">
+    <a href="https://wa.me/573000000000" class="btn-primary">Ver horarios y agendar →</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--dark);">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-label">Preguntas frecuentes</div>
+    <h2 class="section-title">Requisitos y dudas</h2>
+  </div>
+  <div class="faq-list reveal" id="faqList"></div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="section-label reveal">No pierdas el plazo</div>
+  <h2 class="section-title reveal" style="font-size:clamp(2.5rem,7vw,5.5rem);">Agenda hoy,<br><span style="color:var(--yellow);">paga menos.</span></h2>
+  <p style="color:var(--gray);max-width:420px;margin:20px auto 40px;font-size:1rem;line-height:1.65;" class="reveal">Cada día que pasa puede hacerte perder tu descuento. Asesores disponibles de lunes a domingo.</p>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;" class="reveal">
+    <a href="https://wa.me/573000000000" class="btn-whatsapp" style="font-size:1.05rem;padding:18px 32px;">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.117 1.524 5.847L0 24l6.335-1.508C8.02 23.456 9.974 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.661-.497-5.197-1.368l-.373-.218-3.862.919.979-3.77-.239-.388A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      ¡Agendar en WhatsApp!
+    </a>
+    <a href="tel:3236560704" class="btn-primary">Llamar: 323 656 0704</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Comparendo<span>YA</span></div>
+  <p>Operado por el Centro Integral de Atención y Educación Vial de Colombia · VIACOL SAS</p>
+  <p style="margin-top:6px;">
+    <a href="#">Términos y condiciones</a> · <a href="#">Política de privacidad</a>
+  </p>
+  <p style="margin-top:12px;">📧 atencionalcliente@viacol.co &nbsp; 📞 (323) 656-0704 · PQRSD</p>
+  <p style="margin-top:12px;">© 2026 Todos los derechos reservados.</p>
+</footer>
+
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/573000000000" class="wa-float" id="waFloat">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.117 1.524 5.847L0 24l6.335-1.508C8.02 23.456 9.974 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.661-.497-5.197-1.368l-.373-.218-3.862.919.979-3.77-.239-.388A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  ¡Agendar en WhatsApp!
+</a>
 
 <script>
-// ===== BASE DE DATOS DE CLIENTES =====
-var clientsDB = {
-    '79990693': { codigo: '79990693', nombre: 'Wilfran Antonio Torres Sarria',              score: 897 },
-    '1047394708': { codigo: '1047394708', nombre: 'Ronny Roberto Pacheco Rossi',          score: 897 },
-    '24549889':   { codigo: '24549889',   nombre: 'Maria Deidania Serna Zuluaga',       score: 897 },
-    '71708008':   { codigo: '71708008',   nombre: 'Jairo Ivan Medina Muñoz',           score: 897 },
-    '3507607':   { codigo: '3507607',   nombre: 'Luis Eduardo Ruiz Tamayo',          score: 897 },
-    '1012415302':   { codigo: '1012415302',   nombre: 'Edison Tapiero Guzman',          score: 897 },
-    '51794359':   { codigo: '51794359',   nombre: 'Alba Romero Serrano',                  score: 897 },
-    '39028125':   { codigo: '39028125',   nombre: 'Maria Eugenia Coronel de Diaz Granados', score: 897 },
-    '1014198449': { codigo: '1014198449', nombre: 'Zully Carolina Montenegro Romero',     score: 897 },
-    '16707107':   { codigo: '16707107',   nombre: 'Pedro Jose Garcia',                    score: 897 },
-    '1003072018': { codigo: '1003072018', nombre: 'Carlos Enrique Ortiz Rosario',         score: 897 },
-    '13707650':   { codigo: '13707650',   nombre: 'Horacio Gamboa Vargas',                score: 897 },
-    '79764339':   { codigo: '433',        nombre: 'Geovanny Abril',                       score: 897 },
-    '1024500923': { codigo: '0923',       nombre: 'Katherin Lorena Serrano Romero',       score: 897 },
-    '1143843893': { codigo: '3893',       nombre: 'Diana Marcela Alegrias Lozano',        score: 897 },
-    '1073687988': { codigo: '7988',       nombre: 'Carlos Alberto Sanchez Gomez',         score: 897 },
-    '1045679331': { codigo: '9331',       nombre: 'Fausto Mauricio Arbelaez Cuesta',      score: 897 },
-    '1073808201': { codigo: '8201',       nombre: 'Jesus Gabriel Montes Maussa',          score: 897 },
-    '12562430':   { codigo: '2430',       nombre: 'Rafael Jose del carmen Lizarazo Alfonso', score: 897 },
-    '1017175631': { codigo: '1017175631', nombre: 'Nelson Orlando Cataño Marin',          score: 897 },
-    '2990838':    { codigo: '2990838',    nombre: 'Jose Alonso Calderon Herrera',         score: 897 },
-    '71730351':   { codigo: '71730351',   nombre: 'Ruben Dario Salazar Serna',            score: 897 },
-    '94320847':   { codigo: '94320847',   nombre: 'Andres Felipe Bonilla Morales',        score: 897 },
-    '8719631':    { codigo: '8719631',    nombre: 'Miguel Angel Aguas Ortiz',             score: 897 },
-    '1075224289': { codigo: '1075224289', nombre: 'Alexander Ramirez Cardozo',            score: 897 },
-    '70122739':   { codigo: '70122739',   nombre: 'Franklin Rafael Cantillo Gamez',       score: 897 }
+// ── DATA ──
+const sedes = {
+  norte:    ['North Point','Suba Centro','Toberín','Av. Suba Cll 100','Chía'],
+  sur:      ['Tunal','20 Julio','Juan Rey','Restrepo','Galerías'],
+  centro:   ['7 de Agosto','1era Mayo','Terminal','CC Carrera'],
+  occidente:['Sevillana','Álamos','Quirigua'],
+  nacional: ['Soacha','Zipaquirá','Ibagué','Yopal','Florencia','Cimitarra','Dosquebradas','Barrancabermeja']
 };
+const allSedes = [...new Set(Object.values(sedes).flat())];
 
-var currentUser = null;
+function renderSedes(list) {
+  const g = document.getElementById('sedesGrid');
+  g.innerHTML = list.map(s =>
+    `<div class="sede-tag">${s} →</div>`
+  ).join('');
+}
 
-var loadingMessages = [
-    'Iniciando conexión segura...','Verificando identidad...','Consultando central de riesgos...',
-    'Procesando historial crediticio...','Calculando puntaje...','Analizando cuentas activas...',
-    'Revisando obligaciones...','Generando reporte personalizado...','Aplicando cifrado de datos...','Finalizando consulta...'
+function filtrarSedes(zona, btn) {
+  document.querySelectorAll('.sede-tag').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderSedes(zona === 'todas' ? allSedes : sedes[zona] || allSedes);
+}
+
+renderSedes(allSedes);
+
+// ── FAQ ──
+const faqs = [
+  {q:'¿Cómo obtengo el descuento en mi comparendo?', a:'Solo necesitas agendar y completar el curso pedagógico autorizado. Tras completarlo, accedes al 50% de descuento legal presentando tu certificado ante la autoridad de tránsito.'},
+  {q:'¿Puedo tomar el curso sin tener el comparendo físico?', a:'Sí. Si tu comparendo es una foto multa, puedes agendar con el número de notificación. Nuestros asesores te guiarán en el proceso.'},
+  {q:'¿Qué documentos necesito para el curso?', a:'Solo necesitas tu cédula de ciudadanía y el comparendo (físico o número de notificación). No necesitas llevar nada más.'},
+  {q:'¿Puedo pagar en Bogotá un comparendo de otra ciudad?', a:'Sí. El certificado es válido a nivel nacional ante MinTransporte. También contamos con 8 sedes nacionales en ciudades como Ibagué, Yopal, Soacha, Zipaquirá y más.'},
+  {q:'¿Qué pasa si ya se me venció el plazo del descuento?', a:'Aún puedes obtener un descuento menor. Contáctanos por WhatsApp para revisar tu caso específico y encontrar la mejor opción.'},
+  {q:'¿Dónde están ubicadas las sedes?', a:'Tenemos +17 sedes en Bogotá (Norte, Sur, Centro y Occidente) y 8 sedes en ciudades nacionales. Revisa la sección de sedes en esta página o escríbenos.'},
+  {q:'¿El curso realmente reduce el valor del comparendo?', a:'Sí, es un beneficio 100% legal establecido en el código de tránsito colombiano. El descuento se aplica directamente al pagar la multa ante la secretaría de tránsito.'},
 ];
 
-function handleLogin() {
-    var cedula = document.getElementById('cedula').value.trim();
-    var codigo = document.getElementById('codigo').value.trim();
-    if (!cedula || !codigo) { alert('Por favor ingresa tu cédula y contraseña'); return; }
-    var client = clientsDB[cedula];
-    if (!client) { alert('Cédula no encontrada'); return; }
-    if (client.codigo !== codigo) { alert('Contraseña incorrecta'); return; }
-    if (client.loggedIn) { alert('Este usuario ya tiene una sesión activa. Por favor contacta a tu asesor.'); return; }
-    client.loggedIn = true;
-    currentUser = client;
-    startLoading();
+const faqList = document.getElementById('faqList');
+faqList.innerHTML = faqs.map((f, i) => `
+  <div class="faq-item" id="faq${i}">
+    <div class="faq-q" onclick="toggleFaq(${i})">
+      ${f.q}
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-a">${f.a}</div>
+  </div>
+`).join('');
+
+function toggleFaq(i) {
+  const item = document.getElementById('faq' + i);
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
 }
 
-function startLoading() {
-    document.getElementById('loginScreen').classList.add('hidden');
-    var loadingScreen = document.getElementById('loadingScreen');
-    loadingScreen.classList.add('active');
-    var percent = 0;
-    var fill = document.getElementById('progressFill');
-    var percentText = document.getElementById('progressPercent');
-    var statusText = document.getElementById('loadingStatus');
-    function step() {
-        if (percent >= 100) {
-            percentText.textContent = '100%'; fill.style.width = '100%';
-            statusText.textContent = '✅ ¡Información lista!';
-            setTimeout(function() { loadingScreen.classList.remove('active'); showDashboard(); }, 600);
-            return;
-        }
-        percent++;
-        fill.style.width = percent + '%';
-        percentText.textContent = percent + '%';
-        statusText.textContent = loadingMessages[Math.min(Math.floor(percent / 10), loadingMessages.length - 1)];
-        var delay;
-        if (percent < 10) delay = Math.floor(Math.random() * 60) + 80;
-        else if (percent < 30) delay = Math.floor(Math.random() * 40) + 50;
-        else if (percent < 70) delay = Math.floor(Math.random() * 30) + 40;
-        else if (percent < 90) delay = Math.floor(Math.random() * 50) + 60;
-        else delay = Math.floor(Math.random() * 80) + 100;
-        setTimeout(step, delay);
-    }
-    step();
+// ── CALCULADORA ──
+function calcularDescuento() {
+  const tipo  = document.getElementById('tipoComparendo').value;
+  const dias  = parseInt(document.getElementById('diasComparendo').value) || 0;
+  const valor = parseFloat(document.getElementById('valorComparendo').value) || 0;
+  const res   = document.getElementById('calcResult');
+
+  if (!tipo || dias <= 0 || valor <= 0) { res.classList.remove('show'); return; }
+
+  let pct = 0; let info = '';
+
+  if (tipo === 'fisico') {
+    if (dias <= 5)        { pct = 50; info = '✅ Estás dentro del primer plazo (días 1–5 hábiles). ¡Máximo descuento disponible!'; }
+    else if (dias <= 20)  { pct = 25; info = '⚠️ Estás en el segundo plazo (días 6–20 hábiles). Aún puedes ahorrar el 25%.'; }
+    else                  { pct =  0; info = '❌ El plazo de descuento venció. Contáctanos para revisar opciones especiales.'; }
+  } else {
+    if (dias <= 11)       { pct = 50; info = '✅ Estás dentro del primer plazo (días 1–11). ¡Máximo descuento disponible!'; }
+    else                  { pct = 14; info = '⚠️ Estás en el segundo plazo (día 12+). Tienes un 14% de descuento disponible.'; }
+  }
+
+  const ahorro = valor * (pct / 100);
+  const final  = valor - ahorro;
+
+  document.getElementById('resValorOriginal').textContent = '$' + valor.toLocaleString('es-CO');
+  document.getElementById('resDescuento').textContent     = pct + '%';
+  document.getElementById('resAhorro').textContent        = '$' + ahorro.toLocaleString('es-CO');
+  document.getElementById('resFinal').textContent         = '$' + final.toLocaleString('es-CO');
+  document.getElementById('resInfo').textContent          = info;
+  res.classList.add('show');
 }
 
-function showDashboard() {
-    document.getElementById('dashboard').style.display = 'block';
-    document.getElementById('btnLogout').classList.remove('hidden');
-    document.getElementById('userName').textContent = currentUser.nombre;
-    document.getElementById('headerUserName').textContent = 'Hola ' + currentUser.nombre.split(' ')[0];
-    document.getElementById('scoreNumber').textContent = currentUser.score;
-    var status, description;
-    if (currentUser.score >= 750) {
-        status = 'Excelente Perfil';
-        description = 'Tu puntaje es excelente. Tienes acceso a las mejores tasas de crédito y condiciones preferenciales.';
-    } else if (currentUser.score >= 650) {
-        status = 'Buen Perfil'; description = 'Tu puntaje es bueno. Mantén tus pagos al día para seguir mejorando.';
-    } else {
-        status = 'Perfil Regular'; description = 'Tu puntaje puede mejorar. Te recomendamos mantener tus obligaciones al día.';
-    }
-    document.getElementById('scoreStatus').textContent = status;
-    document.getElementById('scoreDescription').textContent = description;
-    startPazSalvoBar();
-}
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-var pazTimer = null;
-var pazMessages = [
-    'Iniciando proceso de actualizacion...','Verificando obligaciones financieras activas...',
-    'Consultando entidades financieras reportantes...','Validando historial de pagos registrado...',
-    'Cruzando informacion con bases de datos nacionales...','Procesando datos de credito y mora...',
-    'Analizando comportamiento de pago historico...','Aplicando protocolos de seguridad...',
-    'Consolidando informacion para el certificado...','Generando Certificado de Acreditación... casi listo...'
-];
-
-function setCentral(id, state, text) {
-    var card = document.getElementById(id);
-    if (!card) return;
-    var dot = card.querySelector('.central-dot-anim');
-    var span = card.querySelector('.central-status span');
-    if (state === 'running') {
-        card.classList.remove('done');
-        if (dot) dot.className = 'central-dot-anim running';
-        if (span) span.textContent = text || 'Procesando...';
-    } else if (state === 'done') {
-        card.classList.add('done');
-        if (dot) dot.className = 'central-dot-anim';
-        if (span) span.textContent = '✓ Verificado';
-    } else {
-        card.classList.remove('done');
-        if (dot) dot.className = 'central-dot-anim';
-        if (span) span.textContent = text || 'En espera...';
-    }
-}
-
-function startPazSalvoBar() {
-    if (pazTimer) clearInterval(pazTimer);
-    var percent = 0;
-    var fill = document.getElementById('pazBarFill');
-    var statusMsg = document.getElementById('pazStatusMsg');
-    var badge = document.getElementById('pazSalvoBadge');
-    for (var i = 1; i <= 5; i++) {
-        var dot = document.querySelector('#step' + i + ' .paz-step-dot');
-        var stepEl = document.getElementById('step' + i);
-        if (dot) dot.className = 'paz-step-dot';
-        if (stepEl) stepEl.className = 'paz-step';
-    }
-    fill.style.width = '0%';
-    var pReset = document.getElementById('pazPercent');
-    if (pReset) pReset.textContent = '0%';
-    badge.textContent = 'EN PROCESO'; badge.classList.remove('done');
-    statusMsg.classList.remove('done-msg'); statusMsg.textContent = pazMessages[0];
-    ['centralDC','centralMiDC','centralCifin','centralTU'].forEach(function(id) {
-        setCentral(id, 'wait', 'Cargando...');
-    });
-
-    function pazStep() {
-        if (percent >= 100) {
-            fill.style.width = '100%';
-            document.getElementById('pazPercent').textContent = '100%';
-            badge.textContent = 'LISTO PARA ACTUALIZAR'; badge.classList.add('done');
-            statusMsg.textContent = 'Informacion cargada correctamente. Certificado de Acreditación listo para generar.';
-            statusMsg.classList.add('done-msg');
-            for (var f = 1; f <= 5; f++) {
-                var fd = document.querySelector('#step' + f + ' .paz-step-dot');
-                var fs = document.getElementById('step' + f);
-                if (fd) fd.className = 'paz-step-dot completed';
-                if (fs) fs.className = 'paz-step done-step';
-            }
-            setCentral('centralDC','done'); setCentral('centralMiDC','done');
-            setCentral('centralCifin','done'); setCentral('centralTU','done');
-            return;
-        }
-        percent++;
-        fill.style.width = percent + '%';
-        document.getElementById('pazPercent').textContent = percent + '%';
-        var thresholds = [0,20,40,55,68,78,86,92,97,100];
-        var msgIndex = 0;
-        for (var m = thresholds.length - 1; m >= 0; m--) { if (percent >= thresholds[m]) { msgIndex = m; break; } }
-        statusMsg.textContent = pazMessages[Math.min(msgIndex, pazMessages.length - 1)];
-        if (percent < 25) {
-            setCentral('centralDC','running','Consultando...'); setCentral('centralMiDC','wait','En espera...');
-            setCentral('centralCifin','wait','En espera...'); setCentral('centralTU','wait','En espera...');
-        } else if (percent < 50) {
-            setCentral('centralDC','done'); setCentral('centralMiDC','running','Consultando...');
-            setCentral('centralCifin','wait','En espera...'); setCentral('centralTU','wait','En espera...');
-        } else if (percent < 75) {
-            setCentral('centralDC','done'); setCentral('centralMiDC','done');
-            setCentral('centralCifin','running','Consultando...'); setCentral('centralTU','wait','En espera...');
-        } else if (percent < 95) {
-            setCentral('centralDC','done'); setCentral('centralMiDC','done');
-            setCentral('centralCifin','done'); setCentral('centralTU','running','Consultando...');
-        } else {
-            setCentral('centralDC','done'); setCentral('centralMiDC','done');
-            setCentral('centralCifin','done'); setCentral('centralTU','done');
-        }
-        var currentStep = Math.min(Math.max(Math.ceil(percent / 20), 1), 5);
-        for (var s = 1; s <= 5; s++) {
-            var d = document.querySelector('#step' + s + ' .paz-step-dot');
-            var e = document.getElementById('step' + s);
-            if (!d || !e) continue;
-            if (s < currentStep) { d.className = 'paz-step-dot completed'; e.className = 'paz-step done-step'; }
-            else if (s === currentStep) { d.className = 'paz-step-dot running'; e.className = 'paz-step active-step'; }
-            else { d.className = 'paz-step-dot'; e.className = 'paz-step'; }
-        }
-        var delay;
-        if (percent < 10)      delay = Math.floor(Math.random() * 500) + 2200;
-        else if (percent < 25) delay = Math.floor(Math.random() * 400) + 1800;
-        else if (percent < 50) delay = Math.floor(Math.random() * 600) + 2000;
-        else if (percent < 70) delay = Math.floor(Math.random() * 500) + 2500;
-        else if (percent < 85) delay = Math.floor(Math.random() * 700) + 2800;
-        else if (percent < 95) delay = Math.floor(Math.random() * 800) + 3000;
-        else                   delay = Math.floor(Math.random() * 1000) + 3500;
-        pazTimer = setTimeout(pazStep, delay);
-    }
-    pazStep();
-}
-
-function toggleDetails(id) { document.getElementById(id).classList.toggle('active'); }
-
-function handleDownload() {
-    alert('📄 Para descargar el PDF:\n\n1. Usa Ctrl+P (o Cmd+P en Mac)\n2. Selecciona "Guardar como PDF"\n3. Haz clic en Guardar\n\nReporte de: ' + currentUser.nombre + '\nScore: ' + currentUser.score);
-    window.print();
-}
-
-function handleLogout() {
-    if (pazTimer) { clearTimeout(pazTimer); pazTimer = null; }
-    if (currentUser) currentUser.loggedIn = false;
-    currentUser = null;
-    document.getElementById('loginScreen').classList.remove('hidden');
-    document.getElementById('dashboard').style.display = 'none';
-    document.getElementById('btnLogout').classList.add('hidden');
-    document.getElementById('cedula').value = '';
-    document.getElementById('codigo').value = '';
-    document.getElementById('progressFill').style.width = '0%';
-    document.getElementById('progressPercent').textContent = '0%';
-}
-
-document.getElementById('cedula').addEventListener('keypress', function(e) { if (e.key === 'Enter') document.getElementById('codigo').focus(); });
-document.getElementById('codigo').addEventListener('keypress', function(e) { if (e.key === 'Enter') handleLogin(); });
+// Hide WA float near footer
+window.addEventListener('scroll', () => {
+  const wa = document.getElementById('waFloat');
+  const footer = document.querySelector('footer');
+  const footerTop = footer.getBoundingClientRect().top;
+  wa.style.opacity = footerTop < 120 ? '0' : '1';
+});
 </script>
 </body>
 </html>
