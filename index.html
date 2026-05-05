@@ -121,6 +121,40 @@ body { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); font-famil
 @media print {
     #pazSalvoBox, .centrales-section, .btn-download, .btn-logout, #btnLogout { display: none !important; }
 }
+
+/* ===== REGISTRO / CAMBIAR CONTRASEÑA ===== */
+.login-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+.login-link {
+    color: #1e3c72;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1.5px solid #1e3c72;
+    transition: background 0.2s, color 0.2s;
+    width: 100%;
+    text-align: center;
+}
+.login-link:hover { background: #1e3c72; color: white; }
+.error-box {
+    background: #fde8e8;
+    color: #b91c1c;
+    border: 1.5px solid #f87171;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    line-height: 1.5;
+    text-align: center;
+}
 </style>
 </head>
 <body>
@@ -158,6 +192,79 @@ body { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); font-famil
     </div>
     <button class="btn-login" onclick="handleLogin()">Conocer MI PUNTAJE</button>
     <p class="help-text">¿No tienes contraseña? Contacta con tu asesor</p>
+    <div class="login-links">
+        <a href="#" class="login-link" onclick="showScreen('registerScreen')">📝 Crear usuario</a>
+        <a href="#" class="login-link" onclick="showScreen('forgotScreen')">🔑 Cambiar contraseña</a>
+    </div>
+</div>
+
+<!-- REGISTRO -->
+<div class="login-container hidden" id="registerScreen">
+    <h1 class="login-title">Crear cuenta</h1>
+    <p class="login-subtitle">Completa tus datos para registrarte</p>
+    <div class="form-group">
+        <label>Nombre(s)</label>
+        <input type="text" id="reg_nombre" placeholder="Ingresa tu nombre">
+    </div>
+    <div class="form-group">
+        <label>Apellidos</label>
+        <input type="text" id="reg_apellidos" placeholder="Ingresa tus apellidos">
+    </div>
+    <div class="form-group">
+        <label>Número de Cédula</label>
+        <input type="text" id="reg_cedula" placeholder="Ingresa tu número de cédula">
+    </div>
+    <div class="form-group">
+        <label>Fecha de Nacimiento</label>
+        <input type="date" id="reg_fecha">
+    </div>
+    <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input type="email" id="reg_correo" placeholder="ejemplo@correo.com">
+    </div>
+    <div class="form-group">
+        <label>Número de Teléfono</label>
+        <input type="tel" id="reg_telefono" placeholder="Ingresa tu número de teléfono">
+    </div>
+    <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="reg_password" placeholder="Crea una contraseña">
+    </div>
+    <div class="form-group">
+        <label>Confirmar Contraseña</label>
+        <input type="password" id="reg_password2" placeholder="Repite tu contraseña">
+    </div>
+    <button class="btn-login" onclick="handleRegister()">Registrarme</button>
+    <div class="login-links">
+        <a href="#" class="login-link" onclick="showScreen('loginScreen')">← Volver al inicio de sesión</a>
+    </div>
+</div>
+
+<!-- CAMBIAR CONTRASEÑA -->
+<div class="login-container hidden" id="forgotScreen">
+    <h1 class="login-title">Cambiar contraseña</h1>
+    <p class="login-subtitle">Ingresa tu cédula para identificarte</p>
+    <div id="forgot_error" class="error-box hidden">
+        ❌ No encontramos ninguna cuenta con ese número de cédula. Verifica el número e intenta de nuevo.
+    </div>
+    <div class="form-group">
+        <label>Número de Cédula</label>
+        <input type="text" id="forgot_cedula" placeholder="Ingresa tu número de cédula" oninput="hideForgotError()">
+    </div>
+    <div id="forgot_newpass_wrap" class="hidden">
+        <div class="form-group">
+            <label>Nueva contraseña</label>
+            <input type="password" id="new_password" placeholder="Ingresa tu nueva contraseña">
+        </div>
+        <div class="form-group">
+            <label>Confirmar contraseña</label>
+            <input type="password" id="new_password2" placeholder="Repite la contraseña">
+        </div>
+    </div>
+    <button class="btn-login" id="btnForgotAction" onclick="handleForgot()">Continuar</button>
+    <div class="login-links">
+        <a href="#" class="login-link" onclick="showScreen('loginScreen')">← Volver al inicio de sesión</a>
+    </div>
 </div>
 
 <!-- LOADING SCREEN -->
@@ -226,13 +333,13 @@ body { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); font-famil
                 <div class="bank-list">
                     <div class="bank-list-item">
                         <span class="bank-icon">🏦</span>
-                        <span class="bank-name"></span>
-                        <span class="bank-date">31 Mar 2026</span>
+                        <span class="bank-name">Bancolombia</span>
+                        <span class="bank-date">28 FEB 2026</span>
                     </div>
                     <div class="bank-list-item">
                         <span class="bank-icon">🏦</span>
-                        <span class="bank-name"></span>
-                        <span class="bank-date">31 Mar 2026</span>
+                        <span class="bank-name">Banco de Bogotá</span>
+                        <span class="bank-date">28 FEB 2026</span>
                     </div>
                 </div>
             </div>
@@ -345,21 +452,21 @@ body { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); font-famil
 <script>
 // ===== BASE DE DATOS DE CLIENTES =====
 var clientsDB = {
-    '1002087990': { codigo: '1002087990', nombre: 'Kelvin Enrique haverra Villalobo',              score: 897 },
-    '1047414381': { codigo: '1047414381', nombre: 'Luis Eduardo Lenes Puello',          score: 897 },
-    '43181361':   { codigo: '43181361',   nombre: 'Leidy Yuliet Cano Duque',       score: 897 },
-    '8530773':   { codigo: '8530773',   nombre: 'Jose Luis Sandoval Nuñez',           score: 897 },
-    '15329469':   { codigo: '15329469',   nombre: 'Adinolfi Eliecer Restrepo',          score: 897 },
-    '1012415302':   { codigo: '1012415302',   nombre: 'Edison Tapiero Guzman',          score: 897 },
-    '91047691':   { codigo: '91047691',   nombre: 'Oscar Becerra Garnica',                  score: 897 },
-    '22746731':   { codigo: '22746731',   nombre: 'Karen Margarita Gonzalez Escobar', score: 897 },
+    '1126454346': { codigo: '1126454346', nombre: 'Fredy Segundo Suarez Muñoz',              score: 897 },
+    '1140844276': { codigo: '1140844276', nombre: 'Denira Berlytze Mejia Nieto',          score: 897 },
+    '47395977':   { codigo: '47395977',   nombre: 'Darcy Yoleida Sogamoso Higuera',       score: 897 },
+    '94535890':   { codigo: '94535890',   nombre: 'Jhon James Tapasco Cardona',           score: 897 },
+    '79843408':   { codigo: '79843408',   nombre: 'Leonardo Rodriguez Angarita',          score: 897 },
+    '91474095':   { codigo: '91474095',   nombre: 'Fernando Jose Duran Salcedo',          score: 897 },
+    '51794359':   { codigo: '51794359',   nombre: 'Alba Romero Serrano',                  score: 897 },
+    '39028125':   { codigo: '39028125',   nombre: 'Maria Eugenia Coronel de Diaz Granados', score: 897 },
     '1014198449': { codigo: '1014198449', nombre: 'Zully Carolina Montenegro Romero',     score: 897 },
-    '1031167842':   { codigo: '1031167842',   nombre: 'Jesus Guillermo Camacho Alzate',                    score: 897 },
-    '86046528': { codigo: '86046528', nombre: 'Luis Alfredo Riveros Morales',         score: 897 },
-    '79730520':   { codigo: '79730520',   nombre: 'Yimi Jesus Calderon Parales',                score: 897 },
-    '1024588399':   { codigo: '1024588399',        nombre: 'Yeison Fabian Quintero',                       score: 897 },
-    '1042765315': { codigo: '1042765315',       nombre: 'Edwin Fernando Arroyave Chavarria',       score: 897 },
-    '1061722415': { codigo: '1061722415',       nombre: 'Alexander Ramirez Morales',        score: 897 },
+    '16707107':   { codigo: '16707107',   nombre: 'Pedro Jose Garcia',                    score: 897 },
+    '1003072018': { codigo: '1003072018', nombre: 'Carlos Enrique Ortiz Rosario',         score: 897 },
+    '13707650':   { codigo: '13707650',   nombre: 'Horacio Gamboa Vargas',                score: 897 },
+    '79764339':   { codigo: '433',        nombre: 'Geovanny Abril',                       score: 897 },
+    '1024500923': { codigo: '0923',       nombre: 'Katherin Lorena Serrano Romero',       score: 897 },
+    '1143843893': { codigo: '3893',       nombre: 'Diana Marcela Alegrias Lozano',        score: 897 },
     '1073687988': { codigo: '7988',       nombre: 'Carlos Alberto Sanchez Gomez',         score: 897 },
     '1045679331': { codigo: '9331',       nombre: 'Fausto Mauricio Arbelaez Cuesta',      score: 897 },
     '1073808201': { codigo: '8201',       nombre: 'Jesus Gabriel Montes Maussa',          score: 897 },
@@ -578,6 +685,104 @@ function handleLogout() {
 
 document.getElementById('cedula').addEventListener('keypress', function(e) { if (e.key === 'Enter') document.getElementById('codigo').focus(); });
 document.getElementById('codigo').addEventListener('keypress', function(e) { if (e.key === 'Enter') handleLogin(); });
+
+// ===== USUARIOS REGISTRADOS DINÁMICAMENTE =====
+var registeredUsers = {};  // cédula -> { nombre, apellidos, correo, telefono, fechaNacimiento, password }
+
+// ===== NAVEGACIÓN ENTRE PANTALLAS =====
+var screens = ['loginScreen','registerScreen','forgotScreen'];
+function showScreen(id) {
+    screens.forEach(function(s) {
+        var el = document.getElementById(s);
+        if (el) el.classList.add('hidden');
+    });
+    document.getElementById(id).classList.remove('hidden');
+    // Reset forgot al abrir
+    if (id === 'forgotScreen') {
+        var cedulaEl = document.getElementById('forgot_cedula');
+        cedulaEl.value = '';
+        cedulaEl.disabled = false;
+        cedulaEl.style.borderColor = '';
+        document.getElementById('forgot_error').classList.add('hidden');
+        document.getElementById('forgot_newpass_wrap').classList.add('hidden');
+        document.getElementById('new_password').value = '';
+        document.getElementById('new_password2').value = '';
+        document.getElementById('btnForgotAction').textContent = 'Continuar';
+        forgotStep = 1; forgotCedula = '';
+    }
+}
+
+// ===== REGISTRO =====
+function handleRegister() {
+    var nombre    = document.getElementById('reg_nombre').value.trim();
+    var apellidos = document.getElementById('reg_apellidos').value.trim();
+    var cedula    = document.getElementById('reg_cedula').value.trim();
+    var fecha     = document.getElementById('reg_fecha').value;
+    var correo    = document.getElementById('reg_correo').value.trim();
+    var telefono  = document.getElementById('reg_telefono').value.trim();
+    var pass      = document.getElementById('reg_password').value;
+    var pass2     = document.getElementById('reg_password2').value;
+
+    if (!nombre || !apellidos || !cedula || !fecha || !correo || !telefono || !pass || !pass2) {
+        alert('⚠️ Por favor completa todos los campos.'); return;
+    }
+    if (pass !== pass2) { alert('⚠️ Las contraseñas no coinciden.'); return; }
+    if (pass.length < 4) { alert('⚠️ La contraseña debe tener al menos 4 caracteres.'); return; }
+
+    if (clientsDB[cedula] || registeredUsers[cedula]) {
+        alert('⚠️ Este número de cédula ya está registrado.\n\nSi olvidaste tu contraseña, usa "Cambiar contraseña".'); return;
+    }
+
+    registeredUsers[cedula] = { nombre: nombre, apellidos: apellidos, correo: correo, telefono: telefono, fechaNacimiento: fecha, password: pass };
+    clientsDB[cedula] = { codigo: pass, nombre: nombre + ' ' + apellidos, score: 897 };
+
+    alert('✅ ¡Cuenta creada exitosamente!\n\nYa puedes iniciar sesión con tu cédula y contraseña.');
+    ['reg_nombre','reg_apellidos','reg_cedula','reg_correo','reg_telefono','reg_password','reg_password2'].forEach(function(id){ document.getElementById(id).value = ''; });
+    document.getElementById('reg_fecha').value = '';
+    showScreen('loginScreen');
+}
+
+// ===== CAMBIAR CONTRASEÑA (2 pasos: cédula → nueva contraseña) =====
+var forgotStep   = 1;
+var forgotCedula = '';
+
+function hideForgotError() {
+    document.getElementById('forgot_error').classList.add('hidden');
+}
+
+function handleForgot() {
+    if (forgotStep === 1) {
+        var cedula = document.getElementById('forgot_cedula').value.trim();
+        if (!cedula) { alert('Por favor ingresa tu número de cédula.'); return; }
+        if (!clientsDB[cedula] && !registeredUsers[cedula]) {
+            document.getElementById('forgot_error').classList.remove('hidden');
+            document.getElementById('forgot_cedula').style.borderColor = '#f87171';
+            return;
+        }
+        document.getElementById('forgot_error').classList.add('hidden');
+        document.getElementById('forgot_cedula').style.borderColor = '';
+        forgotCedula = cedula;
+        forgotStep = 2;
+        document.getElementById('forgot_newpass_wrap').classList.remove('hidden');
+        document.getElementById('forgot_cedula').disabled = true;
+        document.getElementById('btnForgotAction').textContent = 'Guardar nueva contraseña';
+    } else {
+        var pass  = document.getElementById('new_password').value;
+        var pass2 = document.getElementById('new_password2').value;
+        if (!pass || !pass2) { alert('Por favor completa ambos campos.'); return; }
+        if (pass !== pass2)  { alert('⚠️ Las contraseñas no coinciden.'); return; }
+        if (pass.length < 4) { alert('⚠️ La contraseña debe tener al menos 4 caracteres.'); return; }
+
+        if (clientsDB[forgotCedula])       clientsDB[forgotCedula].codigo = pass;
+        if (registeredUsers[forgotCedula]) registeredUsers[forgotCedula].password = pass;
+
+        alert('✅ ¡Contraseña actualizada correctamente!\n\nYa puedes iniciar sesión con tu nueva contraseña.');
+        document.getElementById('forgot_cedula').disabled = false;
+        document.getElementById('forgot_cedula').style.borderColor = '';
+        forgotCedula = ''; forgotStep = 1;
+        showScreen('loginScreen');
+    }
+}
 </script>
 </body>
 </html>
